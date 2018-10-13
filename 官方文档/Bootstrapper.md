@@ -18,37 +18,50 @@ class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
 {
    protected override void OnStart()
    {
-      // This is called just after the application is started, but before the IoC container is set up.
-      // Set up things like logging, etc
+        // This is called just after the application is started, but before the IoC container is set up.
+        // 这是在应用程序启动之后但在设置IoC容器之前调用的。
+
+        // Set up things like logging, etc
+        //设置日志记录等内容
    }
 &nbsp;
    protected override void ConfigureIoC(IStyletIoCBuilder builder)
    {
-      // Bind your own types. Concrete types are automatically self-bound.
+        // Bind your own types. Concrete types are automatically self-bound.
+        // 绑定自己的类型。具体类型自动绑定。
+
       builder.Bind&lt;IMyInterface&gt;().To&lt;MyType&gt;();
    }
 &nbsp;
    protected override void Configure()
    {
-      // This is called after Stylet has created the IoC container, so this.Container exists, but before the
-      // Root ViewModel is launched.
-      // Configure your services, etc, in here
+        // This is called after Stylet has created the IoC container, so this.Container exists, but before the
+        // Root ViewModel is launched.
+        // 这是在 Stylet 创建 IoC 容器之后调用的，所以 IoC container 存在，它在启动根视图模型之前。
+
+        // Configure your services, etc, in here
+        // 在此处配置您的服务等等
    }
 &nbsp;
    protected override void OnLaunch()
    {
-      // This is called just after the root ViewModel has been launched
-      // Something like a version check that displays a dialog might be launched from here
+        // This is called just after the root ViewModel has been launched
+        // Root ViewModel启动后调用
+
+        // Something like a version check that displays a dialog might be launched from here
+        // 可以在这启动类似于显示对话框的版本检查
    }
 &nbsp;
    protected override void OnExit(ExitEventArgs e)
    {
-      // Called on Application.Exit
+        // Called on Application.Exit
+        // 在 Application.Exit 上调用
    }
 &nbsp;
    protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
    {
-      // Called on Application.DispatcherUnhandledException
+        // Called on Application.DispatcherUnhandledException
+        // 在 Application.DispatcherUnhandledException 上调用
    }
 }</pre>
 </td><td><pre lang="vb.net">
