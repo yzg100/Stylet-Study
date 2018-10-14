@@ -1,7 +1,7 @@
 Screens and Conductors are a simple topic, but one which requires a few mental leaps, and requires you to cover all parts of them before they'll make sense. Trust me, it's well worth your time to read this article - they're hugely powerful, and well worth the time investment.
 
 ---
-><font color="#63aebb" face="微软雅黑">屏幕和指挥家是一个简单的话题，但它需要一些思维上的跳跃，并且要求你在理解它们之前必须涵盖它们的所有部分。相信我，这是非常值得你花时间阅读这篇文章-他们非常强大，非常值得时间投入。</font>
+><font color="#63aebb" face="微软雅黑">Screens 和 Conductors 是一个简单的话题，但它需要一些思维上的跳跃，并且要求你在理解它们之前必须涵盖它们的所有部分。相信我，这是非常值得你花时间阅读这篇文章-他们非常强大，非常值得时间投入。</font>
 
 ViewModel Lifecycles - ViewModel 生命周期
 --------------------
