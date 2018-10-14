@@ -19,7 +19,7 @@ This, in a nutshell, is a ViewModel's lifecycle: it's created, then Activated (d
 
 >想象一个选项卡式界面 - 类似 Visual Studio，它（非常简单）一个 shell（包含菜单，工具栏等）和一个包含编辑器选项卡的 TabControl。在 Stylet 中，每个编辑器选项卡都将由其自己的 ViewModel 支持。
 
->现在，其中一个 ViewModel 将通过实例化开始其生命周期。接下来，它将显示。之后，可能会显示或隐藏，具体取决于最终关闭之前当前处于活动状态的选项卡。就在它关闭之前，它有机会阻止关闭提示你保存文件。
+>现在，其中一个 ViewModel 将通过实例化开始其生命周期。接下来，它将显示。之后，可能会显示或隐藏，具体取决于最终关闭之前当前处于活动状态的选项卡。就在它关闭之前，它有机会阻止关闭并提示你保存文件。
 
 >简而言之，这是一个 ViewModel 的生命周期：它被创建，然后被激活（显示给用户）。之后，它可以被取消激活（未被销毁只是未显示）并且在最终被关闭之前（在被询问是否准备好关闭之后）再次激活任何次数。</font>
 
@@ -49,7 +49,7 @@ This has been quite abstract so far - let's go into the details.
 
 >简单地说，Conductor 是一个拥有另一个 ViewModel 的 ViewModel，并且知道如何管理它的生命周期。
 
->在 Visual Studio 示例中，Conductor 将成为 ViewModel，它拥有 TabControl，其中显示了编辑器 ViewModel，因此可能是 Shell ViewModel。每当用户选择新的编辑器选项卡时，Conductor 将停用旧选项卡，并激活新选项卡。当用户关闭选项卡时，Conductor 将告诉该选项卡它已被关闭，然后决定下一个要显示的选项卡，并激活它。
+>在 Visual Studio 示例中，Conductor 将成为 ViewModel，它拥有 TabControl，其中有显示了编辑器的 ViewModel，因此可能是 Shell ViewModel。每当用户选择新的编辑器选项卡时，Conductor 将停用旧选项卡，并激活新选项卡。当用户关闭选项卡时，Conductor 将告诉该选项卡它已被关闭，然后决定下一个要显示的选项卡，并激活它。
 
 >就是这样，ViewModels 有一个生命周期，由拥有 ViewModel 的 Conductor 实现。
 
