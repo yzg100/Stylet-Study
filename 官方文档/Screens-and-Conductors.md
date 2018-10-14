@@ -69,9 +69,9 @@ There's an overarching interface called `IScreen` which composes them all, and a
  - `IChild`: It can be advantageous for a ViewModel to know what Conductor is managing it (to request that it be closed, for example). If the ViewModel implements `IChild`, it will be told this.
 
 ---
-><font color="#63aebb" face="微软雅黑">如上所述，ViewModel 的生命周期由 ViewModel 上的 Conductor 调用方法管理。这些方法是在一组独立接口中定义的 - 如果您实现了接口，并且 ViewModel 的托管是一个 Conductor，那么该方法将被调用。如果您愿意，您可以选择您想要的接口。
+><font color="#63aebb" face="微软雅黑">如上所述，ViewModel 的生命周期由 ViewModel 上的 Conductor 调用方法管理。这些方法是在一组独立接口中定义的 - 如果你实现了接口，并且 ViewModel 的托管是一个 Conductor，那么该方法将被调用。如果你愿意，你可以选择你想要的接口。
 
-有一个名为 `IScreen` 的总体接口，它构成了所有的界面，还有一个默认的实现，称为 `Screen`。它的性能非常好，您可能永远不需要实现自己的接口 - 但如果您愿意，您可以这样做。 
+>有一个名为 `IScreen` 的总体接口，它构成了所有的界面，还有一个默认的实现，称为 `Screen`。它的性能非常好，你可能永远不需要实现自己的接口 - 但如果你愿意，你可以这样做。 
 
 >- `IScreenState`：激活、禁用和关闭 ViewModel。`Activate`, `Deactivate`,和 `Close` 方法，以及跟踪 screen 状态变化的事件和属性。 
 
