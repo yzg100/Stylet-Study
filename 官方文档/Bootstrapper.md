@@ -40,7 +40,7 @@ class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
         // 这是在 Stylet 创建 IoC 容器之后调用的，所以 IoC container 存在，它在启动根视图模型之前。
 
         // Configure your services, etc, in here
-        // 在此处配置您的服务等等
+        // 在此处配置你的服务等等
    }
 &nbsp;
    protected override void OnLaunch()
@@ -144,4 +144,4 @@ If you want to write your own bootstrapper for another IoC container, that's eas
 ---
 ><font color="#63aebb" face="微软雅黑">如果你想为另一个 IoC 容器编写自己的引导程序，那也很容易。看看上面的bootstrappers，看看你需要做什么。</font >
 
-[目录](./Index.md)&nbsp;&nbsp;|&nbsp;&nbsp;[ViewModel First](./ViewModel-First.md)
+[目录](./Index.md)&nbsp;&nbsp;|&nbsp;&nbsp;[ViewModel First - 视图模型优先](./ViewModel-First.md)

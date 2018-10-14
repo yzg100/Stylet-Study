@@ -1,6 +1,9 @@
 Screens and Conductors are a simple topic, but one which requires a few mental leaps, and requires you to cover all parts of them before they'll make sense. Trust me, it's well worth your time to read this article - they're hugely powerful, and well worth the time investment.
 
-ViewModel Lifecycles
+---
+><font color="#63aebb" face="微软雅黑">屏幕和指挥家是一个简单的话题，但它需要一些思维上的跳跃，并且要求你在理解它们之前必须涵盖它们的所有部分。相信我，这是非常值得你花时间阅读这篇文章-他们非常强大，非常值得时间投入。</font>
+
+ViewModel Lifecycles - ViewModel 生命周期
 --------------------
 
 A good place to start at is by looking at ViewModel lifecycles.
@@ -11,14 +14,24 @@ Now, one of those ViewModels will start its life by being instantiated. Next up,
 
 This, in a nutshell, is a ViewModel's lifecycle: it's created, then Activated (displayed to the user). After that, it can be Deactivated (still alive but not shown) and Activated again any number of times, before finally being Closed (after being asked whether it's ready to be closed).
 
+---
+><font color="#63aebb" face="微软雅黑">一个好的开始是查看 ViewModel 生命周期。
+
+>想象一个选项卡式界面 - 类似 Visual Studio，它（非常简单）一个 shell（包含菜单，工具栏等）和一个包含编辑器选项卡的 TabControl。在 Stylet 中，每个编辑器选项卡都将由其自己的 ViewModel 支持。
+
+>现在，其中一个 ViewModel 将通过实例化开始其生命周期。接下来，它将显示。之后，可能会显示或隐藏，具体取决于最终关闭之前当前处于活动状态的选项卡。就在它关闭之前，它有机会阻止关闭提示你保存文件。
+
+>简而言之，这是一个 ViewModel 的生命周期：它被创建，然后被激活（显示给用户）。之后，它可以被取消激活（未被销毁只是未显示）并且在最终被关闭之前（在被询问是否准备好关闭之后）再次激活任何次数。</font>
 
 IDisposable
 -----------
 
 It's worth noting that if a ViewModel implements `IDisposable`, then it will be disposed after it's closed by its parent (unless the parent's `DisposeChildren` property is false).
 
+---
+><font color="#63aebb" face="微软雅黑">值得注意的是，如果 ViewModel 实现了 `IDisposable`，那么它将在它的父节点关闭之后被释放（除非父节点的`DisposeChildren`属性为 false）。</font>
 
-Introducing Conductors
+Introducing Conductors - Conductors 介绍
 ----------------------
 
 Now, a ViewModel doesn't magically know when it's been shown, hidden, or closed. It has to be told. This is the role of a Conductor.
@@ -31,6 +44,16 @@ And that's it, really. ViewModels have a lifecycle, and that's implemented by th
 
 This has been quite abstract so far - let's go into the details.
 
+---
+><font color="#63aebb" face="微软雅黑">现在，ViewModel 不会神奇地知道它何时被显示，隐藏或关闭。必须要告诉它。这是 Conductor 的作用。
+
+>简单地说，Conductor 是一个拥有另一个 ViewModel 的 ViewModel，并且知道如何管理它的生命周期。
+
+>在 Visual Studio 示例中，Conductor 将成为 ViewModel，它拥有 TabControl，其中显示了编辑器 ViewModel，因此可能是 Shell ViewModel。每当用户选择新的编辑器选项卡时，Conductor 将停用旧选项卡，并激活新选项卡。当用户关闭选项卡时，Conductor 将告诉该选项卡它已被关闭，然后决定下一个要显示的选项卡，并激活它。
+
+>就是这样，ViewModels 有一个生命周期，由拥有 ViewModel 的 Conductor 实现。
+
+>以上都是非常抽象的 - 让我们看看细节。</font>
 
 IScreen and Screen
 ------------------
@@ -44,6 +67,22 @@ There's an overarching interface called `IScreen` which composes them all, and a
  - `IViewAware`: Sometimes a ViewModel needs to know about its View (when it's attached, what it is, etc). This interface allows that through a `View` property and an `AttachView` method.
  - `IHaveDisplayName`: Has a `DisplayName` property. This name is used as the title for windows and dialogs displayed using [[The WindowManager]], and is also useful for things like TabControls.
  - `IChild`: It can be advantageous for a ViewModel to know what Conductor is managing it (to request that it be closed, for example). If the ViewModel implements `IChild`, it will be told this.
+
+---
+><font color="#63aebb" face="微软雅黑">如上所述，ViewModel 的生命周期由 ViewModel 上的 Conductor 调用方法管理。这些方法是在一组独立接口中定义的 - 如果您实现了接口，并且 ViewModel 的托管是一个 Conductor，那么该方法将被调用。如果您愿意，您可以选择您想要的接口。
+
+有一个名为 `IScreen` 的总体接口，它构成了所有的界面，还有一个默认的实现，称为 `Screen`。它的性能非常好，您可能永远不需要实现自己的接口 - 但如果您愿意，您可以这样做。 
+
+>- `IScreenState`：激活、禁用和关闭 ViewModel。`Activate`, `Deactivate`,和 `Close` 方法，以及跟踪 screen 状态变化的事件和属性。 
+
+>- `IGuardClose`：询问 ViewModel 是否可以关闭。有 `CanCloseAsync` 方法。
+
+>- `IViewAware`：有时候 ViewModel 需要知道它的 View(当它被附加时，它是什么，等等)。这个接口通过一个 `View` 属性和一个 `AttachView` 方法来实现。
+
+>- `IHaveDisplayName`：是否具有 `DisplayName` 属性。这个名称可作为 [WindowManager](./The-WindowManager.md) 显示的窗口和对话框的标题，对于 TabControl 控件也很有用。
+
+>- `IChild`：对于一个 ViewModel 来说，知道是什么 Conductor 在管理它是有利的(例如，要求关闭它)。如果 ViewModel 实现了 `IChild`，就会接收到通知。 
+</font>
 
 Note that there's no guarantee of the order in which Activate, Deactivate, and Close are called in - a ViewModel can be activated twice in a row, then closed without being deactivated. It's up to the ViewModel to notice these things, and react accordingly. Stylet's `Screen` does this.
 
@@ -173,3 +212,4 @@ If you call `CloseItem` on the current `ActiveItem`, this has the same effect. I
 
 This one's a bit of an oddball, as it's internal and you're not expected to ever interact with it directly, but I've included it here for interest. Whenever you display a dialog or window using the `WindowManager` (this includes the window which Stylet shows when you first start your application), a new `WindowConductor` manages its lifecycle. Whenever your window or dialog is minimised, it's deactivated. Whenever it's maximized, it's activated. If your ViewModel requests that it be closed (see `RequestClose` above), the `WindowConductor` handles this. Similarly, if the user closes your window themselves, the `WindowConductor` will ask your ViewModel whether it's ready to be closed.
 
+[目录](./Index.md)&nbsp;&nbsp;|&nbsp;&nbsp;[BindableCollection - 绑定集合](./BindableCollection.md)
