@@ -73,15 +73,15 @@ There's an overarching interface called `IScreen` which composes them all, and a
 
 >有一个名为 `IScreen` 的总体接口，它构成了所有的界面，还有一个默认的实现，称为 `Screen`。它的性能非常好，你可能永远不需要实现自己的接口 - 但如果你愿意，你可以这样做。 
 
->- `IScreenState`：激活、禁用和关闭 ViewModel。`Activate`, `Deactivate`,和 `Close` 方法，以及跟踪 screen 状态变化的事件和属性。 
+>- `IScreenState`：激活、禁用和关闭 ViewModel。拥有 `Activate`, `Deactivate`,和 `Close` 方法，以及跟踪 screen 状态变化的事件和属性。 
 
->- `IGuardClose`：询问 ViewModel 是否可以关闭。有 `CanCloseAsync` 方法。
+>- `IGuardClose`：询问 ViewModel 是否可以关闭。拥有 `CanCloseAsync` 方法。
 
 >- `IViewAware`：有时候 ViewModel 需要知道它的 View(当它被附加时，它是什么，等等)。这个接口通过一个 `View` 属性和一个 `AttachView` 方法来实现。
 
 >- `IHaveDisplayName`：是否具有 `DisplayName` 属性。这个名称可作为 [WindowManager](./The-WindowManager.md) 显示的窗口和对话框的标题，对于 TabControl 控件也很有用。
 
->- `IChild`：对于一个 ViewModel 来说，知道是什么 Conductor 在管理它是有利的(例如，要求关闭它)。如果 ViewModel 实现了 `IChild`，就会接收到通知。 
+>- `IChild`：对于一个 ViewModel 来说，知道是什么 Conductor 在管理它是有用的(例如，要求关闭它)。如果 ViewModel 实现了 `IChild`，就会接收到通知。 
 </font>
 
 Note that there's no guarantee of the order in which Activate, Deactivate, and Close are called in - a ViewModel can be activated twice in a row, then closed without being deactivated. It's up to the ViewModel to notice these things, and react accordingly. Stylet's `Screen` does this.
