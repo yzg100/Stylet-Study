@@ -1,3 +1,4 @@
+
 Screens and Conductors are a simple topic, but one which requires a few mental leaps, and requires you to cover all parts of them before they'll make sense. Trust me, it's well worth your time to read this article - they're hugely powerful, and well worth the time investment.
 
 ---
@@ -101,8 +102,32 @@ Screen derives from [[PropertyChangedBase]], so it's easy to raise PropertyChang
 
 You'll probably find that all of your ViewModels are subclasses of Screen. That's not to say that they need to be - you can create your own implementation of `IScreen`, or pick and choose the interfaces you want to implement from above - but it's convenient and powerful.
 
+---
+><font color="#63aebb" face="微软雅黑">注意，不能保证调用Activate、Deactivate 和 Close 的顺序 - ViewModel 可以被连续激活两次，然后在不被激活的情况下被关闭。这取决于 ViewModel 来注意这些事情，并做出相应的反应。Stylet 的 `Screen` 这样做。
 
-Conductors in Detail
+>`Screen` 有一些虚拟方法，你可以覆盖它们：
+
+>- `OnInitialActivate`：仅在 Screen 第一次激活时调用。用于设置你不想在构造函数中设置的内容。
+
+>- `OnActivate`：当 Screen 激活时调用。只有在 Screen 尚未激活的情况下才会调用。
+
+>- `OnDeactivate`： Screen 停用时调用。只在 Screen 尚未停用时才会调用。
+
+>- `OnClose`： Screen 关闭时调用。只会被调用一次。只在 Screen 停用时调用。
+
+>- `OnViewLoaded`：在触发 View 的 `Loaded` 事件时调用。
+
+>- `CanCloseAsync`：当 Conductor 想知道 Screen 是否可以关闭时调用。默认情况下，返回`Task.FromResult(this.CanClose)`，你可以在此处添加自己的异步处理逻辑。
+
+>- `CanClose`：为了方便，`CanCloseAsync` 只是默认情况下调用。如果你想决定是否可以同步关闭，请重写 `CanClose`。如果要异步决定，则重写 `CanCloseAsync`。 
+
+>- `RequestClose(bool? dialogResult = null)`：当你向 Conductor 请求关闭时，可以调用这个函数。如果在对话框中，则使用对话框 DialogResult 参数。
+
+ >Screen 派生自 [PropertyChangedBase](./PropertyChangedBase.md)，因此很容易引发 PropertyChanged 通知。
+
+ >你可能会发现，所有的 ViewModel 都是 Screen 的子类。这并不是必要的 - 你可以创建自己的 `IScreen` 实现，或者从上面选择你想要实现的接口，它非常方便和强大。 </font>
+
+Conductors in Detail - Conductors 详情
 -------------------
 
 Conductors come in a variety of flavours, each of which has its own use-cases. A conductor can own a single ViewModel (think navigation with one page shown at a time), or multiple ViewModels. Those with multiple ViewModels can have have just one active at a time (think the TabControl from the Visual Studio example above), or all of them (think grid with lots of independent elements). Conductors can also add behaviour such as keeping a record of which ViewModels they've shown (useful for navigation). 
@@ -110,6 +135,7 @@ Conductors come in a variety of flavours, each of which has its own use-cases. A
 As with the `Screen` class, Stylet defines a number of interfaces which are of interest to conductors, and a number of implementations (depending on the sort of conductor behaviour you want), although you can of course implement your own.
 
 The primary interface is `IConductor<T>`, which represents a conductor as you would interact with it. It has the following methods
+
  - `ActivateItem(T item)`: Take the given item, and activate it. Whether this deactivates a previous item is determined by the conductor.
  - `DeactivateItem(T item)`: Take the given item, and deactivate it. Whether this activates another item is determined by the conductor.
  - `CloseItem(T item)`: Take the given item, and close it. Whether this causes another item to be activated to take its place is conductor-specific.
@@ -118,13 +144,34 @@ The conductors which have a single active item (regardless of how many inactive 
 
 All of the built-in conductors will set an item's `Parent` property to itself, if the item implements `IChild`. All of the built-in conductors additionally implement `IChildDelegate`, which allows the child to request that it be closed (by calling `CloseItem`). In the default `Screen` implementation, calling `Screen.RequestClose` will cause the screen to call `CloseItem` on its parent (provided its parent implement `IChildDelegate`), which in turn causes its parent (if it exists) to close it.
 
+---
+><font color="#63aebb" face="微软雅黑">Conductor 有多种不同的风格，每一种都有自己的用途。一个 Conductor 可以拥有一个 ViewModel (比如一次显示一个页面的导航)，或者多个 ViewModdel。有多个 ViewModel 的 Conductor 一次只能有一个活动的 View (比如上面的 Visual Studio 示例中的 TabControl)，或者所有 ViewModel（想想有很多独立元素的网格）。Conductor 还可以添加行为，例如记录显示的 ViewModel（对导航很有用）。
 
-Built-In Conductors
+>与 `Screen` 类一样，Style定义了许多 conductor 感兴趣的接口，以及一些实现(取决于你想要的 conductor 行为类型)，你当然可以实现自己的接口。 
+
+>主接口是 `IConductor<T>`，它代表conductor，就像你将与它交互一样。它有以下方法：
+
+>- `ActivateItem(T item)`：获取给定 item 并激活它。是否取消激活`上一个` item 由 conductor 决定。
+
+>- `DeactivateItem(T item)`：获取给定 item 并停用它。是否激活`另一个` item 由 conductor 决定。
+
+>- `CloseItem(T item)`：关闭指定的 item，是否导致`另一个` item 被激活并取代它由conductor 决定。
+
+>具有单个活动项(不管它们可能具有多少非活动项)的 conductor 还实现了 `IHaveActiveItem<T>` 接口，它具有当前活动项属性 `ActiveItem`。
+
+>如果 item 实现了 `IChild` 接口，所有内嵌 conductor 都将为 items 的 `Parent` 属性设计为自己。所有内嵌 conductor 都额外实现了 `IChildDelegate`，它允许 child 通过调用 `CloseItem` 请求关闭。默认的 `Screen` 调用 `Screen.RequestClose` 将导致 screen 调用父组件上的 `CloseItem` 方法(如果它的父组件实现了 `IChildDelegate`接口)，这反过来又会导致它的父组件(如果存在的话)关闭它。</font>
+
+Built-In Conductors - 内嵌 Conductor
 -------------------
 
 Stylet comes with some conductors built-in, which perform in a number of intuitive ways.
 
 All of these conductors derive from `Screen`, allowing conductors to easily own other conductors. This means you can compose your conductors and screens in any way you want.
+
+---
+><font color="#63aebb" face="微软雅黑">Style 附带了一些 内嵌 Conductor，它们以多种直观的方式执行。 
+
+>所有这些 conductor 继承至 `Screen`，允许 conductor 容易地拥有其它 conductor。这意味着你可以以任何方式组合 conductor 和 screen。</font>
 
 ### `Conductor<T>`
 
@@ -135,6 +182,15 @@ When asked whether it can be closed (when `CanCloseAsync` is called), it returns
 The `ActiveItem` can also be set directly, which has the same effect as calling `ActivateItem` on it.
 
 A ViewModel for this Conductor will look something like this - a ContentControl bound to the conductor's ActiveItem:
+
+---
+><font color="#63aebb" face="微软雅黑">这个简单的 conductor 拥有一个ViewModel（类型 `T`），它被公开为 `ActiveItem`。`ActivateItem` 方法用于用新的 ViewModel 实例替换当前的 `ActiveItem`，激活新项并关闭旧项。当 `Condcutor<T>` 被激活时，它会激活它的 `ActiveItem`;同样，当 `ActiveItem` 被分别停用或关闭时，它也会分别停用和关闭。
+
+>当被问及它是否可以被关闭时(当调用 `CanCloseAsync` 时)，它会返回 `ActiveItem` 的调用返回值，如果没有`ActiveItem` 则返回true。
+
+>也可以直接设置 `ActiveItem`，其效果与调用 `ActivateItem` 相同。
+
+>Conductor 的 ViewModel 看起来是这样 - 将 conductor.ActiveItem 绑定到 ContentControl：</font>
 
 ```xml
 <Window x:Class="MyNamespace.ConductorViewModel"
@@ -156,6 +212,17 @@ The `Items` collection can be manipulated directly, if you want. The `ActiveItem
 
 A ViewModel with a TabControl using this conductor could look like this (see below for the short version):
 
+---
+><font color="#63aebb" face="微软雅黑">该 conductor 拥有许多 Item，但一次只能有一个 Item 被激活。通过这种方式，它可以模拟 TabControl 的行为 - 许多选项卡可以同时存在，但一次只能显示一个。
+
+>它拥有一个类型为 `T` 的集合 `Items`，其中一个被赋予了 `ActiveItem`。调用 `ActivateItem` 将 item 添加到 `Items` 集合中，同时将其激活并设置为 `ActiveItem`；如果 `ActiveItem` 之前设置过，则被停用，并保留在 `Items` 集合中。 
+
+>在一个 item 上调用 `DeactivateItem` 或 `CloseItem` 将分别导致该 item 被停用和关闭。它不再是被激活的，所以它不再是 `ActiveItem` - 另一个 item 会被激活并设置为 `ActiveItem`。新的 `ActiveItem` 是存在于 `Items` 集合中的一个，位于被停用/关闭的项前面。
+
+>如果你愿意，可以直接操作 `Items` 集合。`ActiveItem` 也可以直接设置，其作用与调用`ActivateItem` 传递该 item 相同。
+
+>使用此 conductor 的 TabControl ViewModel 可以如下(参见下面的简短版本):</font>
+
 ```xml
 <TabControl ItemsSource="{Binding Items}" SelectedItem="{Binding ActiveItem}" DisplayMemberPath="DisplayName">
    <TabControl.ContentTemplate>
@@ -167,6 +234,9 @@ A ViewModel with a TabControl using this conductor could look like this (see bel
 ```
 
 However, that's a bit of a mouthful, so Stylet provides a style for you which does the same thing. This means you can instead do:
+
+---
+><font color="#63aebb" face="微软雅黑">但是，这有点让人感到麻烦，所以 Style 为你提供了另一种实现方式。你可以这样做：</font>
 
 ```xml
 <TabControl Style="{StaticResource StyletConductorTabControl}"/>
@@ -183,6 +253,15 @@ The `Items` collection can also be manipulated directly. Any items added will be
 
 A typical use-case might be using an ItemsControl, where all of the items are visible at once. A ViewModel which uses an ItemsControl in this way might look like this (again, see below for the short version):
 
+---
+><font color="#63aebb" face="微软雅黑">该 conductor 与 `Conductor<T>.Collection.OneActive` 非常相似，只是它没有 `ActiveItem`。它只有 Item 集合。当一个项目被激活（使用 `ActivateItem`）时，它被添加到这个集合中，当它被关闭时，它将被从这个集合中删除。
+
+>调用 `DeactivateItem` 将直接停用该 item，而不将其从 `Items` 集合中删除。
+
+>该 `Items` 集合也可以直接操作。添加的任何 item 都将被激活，任何已删除的 item 都将被关闭。
+
+>典型的用例是使用 ItemsControl，其中所有项目一次可见。以这种方式使用 ItemsControl 的 ViewModel 如下所示（请参阅下面的简短版本）：</font>
+
 ```xml
 <ItemsControl ItemsSource="{Binding Items}">
    <ItemsControl.ItemTemplate>
@@ -194,6 +273,9 @@ A typical use-case might be using an ItemsControl, where all of the items are vi
 ```
 
 As this is quite verbose, Stylet provides a style which sets these properties for you:
+
+---
+><font color="#63aebb" face="微软雅黑">由于这非常冗长，Stylet 为你提供了一种更方便的方式：</font>
 
 ```xml
 <ItemsControl Style="{StaticResource StyletConductorItemsControl}"/>
@@ -207,6 +289,12 @@ It has a single `ActiveItem`, but also keeps a (private) history of the past ite
 
 If you call `CloseItem` on the current `ActiveItem`, this has the same effect. If you call `CloseItem` on any item which exists in the history stack, that item will be closed and removed from the history stack. Calling `Clear()` will close and remove all items from the history stack.
 
+---
+><font color="#63aebb" face="微软雅黑">该 conductor 是 `Conductor<T>` 和 `Conductor<T>.Collection.OneActive` 的混合体，它提供了额外的内容:基于堆栈方式的导航。
+
+>它有一个 `ActiveItem` ，但也保存了过去活动的 item 的(私有)历史记录。当您激活一个新 item 时，先前的 `ActiveItem` 被停用，并被放入历史堆栈。调用 `GoBack()` 将关闭当前的 `ActiveItem`，从历史堆栈中重新激活最上面的 item，并将其设置为新的 `ActiveItem`。 
+
+>如果在当前的 `ActiveItem` 上调用 `CloseItem`，效果是相同的。如果对历史堆栈中存在的任何项调用 `CloseItem`，该项 item 被关闭并从历史堆栈中删除。调用 `Clear()` 将关闭并从历史堆栈中删除所有 item。</font>
 
 ### `WindowConductor`
 
