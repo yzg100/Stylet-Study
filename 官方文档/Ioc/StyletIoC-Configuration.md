@@ -1,7 +1,7 @@
 Here you'll learn how to create a new StyletIoC container, and register your services on it.
 
 ---
-><font color="#63aebb" face="微软雅黑">在这里，您将学习如何创建一个新的StyletIoC容器，并在其上注册您的服务。</font>
+><font color="#63aebb" face="微软雅黑">在这里，你将学习如何创建一个新的StyletIoC容器，并在其上注册你的服务。</font>
 
 Getting Started - The Builder - 入门 - 构建器
 -----------------------------
@@ -9,7 +9,7 @@ Getting Started - The Builder - 入门 - 构建器
 Creating a new container is a two-step process. First you must create a new `StyletIoCBuilder`, and register all of your services on it. When you're done, you call `StyletIoCBuilder.BuildContainer()`, which will create a new `IContainer`. This ensures that a container is completely immutable, which simplifies quite a few things.
 
 ---
-><font color="#63aebb" face="微软雅黑">创建新容器需要两个步骤。首先，您必须创建新的 `StyletIoCBuilder`，并在其上注册所有服务。完成后，调用 ` StyletIoCBuilder.BuildContainer()`，它将创建新的 `IContainer`。这确保了容器是完全不可变的，这简化了很多事情。
+><font color="#63aebb" face="微软雅黑">创建新容器需要两个步骤。首先，你必须创建新的 `StyletIoCBuilder`，并在其上注册所有服务。完成后，调用 ` StyletIoCBuilder.BuildContainer()`，它将创建新的 `IContainer`。这确保了容器是完全不可变的，这简化了很多事情。
 
 >示例：</font>
 For example:
@@ -28,7 +28,7 @@ builder.Bind<IVehicle>().To<HotHatchback>();
 IContainer ioc = builder.BuildContainer();
 
 // Now you can use this to resolve instances of services
-// 现在您可以使用它来解析服务
+// 现在你可以使用它来解析服务
 var vehicle = ioc.Get<IVehicle>();
 ```
 
@@ -57,7 +57,7 @@ You can of course bind a service to itself, so long as that service is a concret
 ---
 ><font color="#63aebb" face="微软雅黑">告诉 StyletIoC :“每当我向你请求 `IVehicle` 时，使用合适的构造函数创建新的 `HotHatchback`，并传递所有必要的依赖项。”
 
->当然，您可以将服务绑定到自身，只要服务是具体类型。这就是所谓的“自绑定”。例如：</font>
+>当然，你可以将服务绑定到自身，只要服务是具体类型。这就是所谓的“自绑定”。例如：</font>
 
 ```csharp
 builder.Bind<HotHatchback>().To<HotHatchback>();
@@ -72,7 +72,7 @@ You can also use the non-generic overloads if you wish:
 ---
 ><font color="#63aebb" face="微软雅黑">这告诉 StyletIoC：“每当我向你请求 `HotHatchback` 时，给我 `HotHatchback`，并填充所有依赖关系。”
 
->如果您愿意，也可以使用非泛型重载：</font>
+>如果你愿意，也可以使用非泛型重载：</font>
 
 ```csharp
 builder.Bind(typeof(IVehicle)).To(typeof(HotHatchback));
@@ -83,7 +83,7 @@ builder.Bind(typeof(IVehicle)).To(typeof(HotHatchback));
 If, for some reason, you want to tell StyletIoC *exactly* how to construct your type, you can pass it a delegate to call. This is called a "factory binding". For example:
 
 ---
-><font color="#63aebb" face="微软雅黑">如果出于某种原因，您想告诉 StyletIoC 如何 *正确的* 构造您的类型，您可以将一个委托传递给它来调用。这被称为“工厂绑定”。例如:</font>
+><font color="#63aebb" face="微软雅黑">如果出于某种原因，你想告诉 StyletIoC 如何 *正确的* 构造你的类型，你可以将一个委托传递给它来调用。这被称为“工厂绑定”。例如:</font>
 
 ```csharp
 builder.Bind<IVehicle>().ToFactory(container => new HotHatchback());
@@ -114,7 +114,7 @@ This can be useful for things like configuration objects.
 For example:
 
 ---
-><font color="#63aebb" face="微软雅黑">您可以自己构造一个类型的实例提供给IoC容器。这对配置对象这样的事情很有用。例如：</font>
+><font color="#63aebb" face="微软雅黑">你可以自己构造一个类型的实例提供给IoC容器。这对配置对象这样的事情很有用。例如：</font>
 
 ```csharp
 builder.Bind<IVehicle>().ToInstance(new HotHatchback());
@@ -158,7 +158,7 @@ The IoC container won't dispose `IDisposable` transient types - it doesn't claim
 However, you can also tell it to only create one instance of a service, ever, and return that one instance every time you ask it. This is called "singleton scope", and is very useful if your application does have singletons (most do), as it saves you from having a traditional Singleton object, which are notoriously hard to mock for unit tests.
 
 ---
-><font color="#63aebb" face="微软雅黑">您也可以告诉它只创建一个服务实例，并在每次请求时返回该实例。这被称为“单例范围”，如果你的应用程序确实有单例（大多数都有），它非常有用，因为它可以避免使用传统的单例对象，这对于单元测试来说是非常难以模拟的。</font>
+><font color="#63aebb" face="微软雅黑">你也可以告诉它只创建一个服务实例，并在每次请求时返回该实例。这被称为“单例范围”，如果你的应用程序确实有单例（大多数都有），它非常有用，因为它可以避免使用传统的单例对象，这对于单元测试来说是非常难以模拟的。</font>
 
 ```csharp
 builder.Bind<IConfigurationManager>().To<ConfigurationManager>().InSingletonScope();
@@ -220,7 +220,7 @@ Binding Multiple Types To A Single Service - 将多种类型绑定到单个服�
 So far, we've experimented with binding a single type to a single service. That's not how it has to be, though. You *can* bind multiple types to a single service, for example:
 
 ---
-><font color="#63aebb" face="微软雅黑">到目前为止，我们已经尝试将单个类型绑定到单个服务。但事实并非如此。您可以将多个类型绑定到一个服务，例如：</font>
+><font color="#63aebb" face="微软雅黑">到目前为止，我们已经尝试将单个类型绑定到单个服务。但事实并非如此。你可以将多个类型绑定到一个服务，例如：</font>
 
 ```csharp
 interface IVehicle { ... }
@@ -246,7 +246,7 @@ As you can see, if you want to fetch an array of items, you need to use `IContai
 This also works with constructor and parameter injection, see:
 
 ---
-><font color="#63aebb" face="微软雅黑">如您所见，如果你想获取 item 的数组，使用 `IContainer.GetAll` - 如果你尝试用 `IContainer.Get` 来获取一个 `IVehicle`，StyletIoC 不知道该给你哪个，所以它会抛出一个异常。
+><font color="#63aebb" face="微软雅黑">如你所见，如果你想获取 item 的数组，使用 `IContainer.GetAll` - 如果你尝试用 `IContainer.Get` 来获取一个 `IVehicle`，StyletIoC 不知道该给你哪个，所以它会抛出一个异常。
 
 >这也适用于构造函数和参数注入，如下:
 </font>
@@ -291,7 +291,7 @@ builder.Bind<IValidator<int>>().To<Validator<int>>();
 The fun begins when you want to create bindings for generic types where the exact types of the type parameters *aren't* known, for example:
 
 ---
-><font color="#63aebb" face="微软雅黑">有趣的是，当您想为泛型类型创建绑定时，类型参数的确切类型是未知的，例如:</font>
+><font color="#63aebb" face="微软雅黑">有趣的是，当你想为泛型类型创建绑定时，类型参数的确切类型是未知的，例如:</font>
 
 ```csharp
 interface IValidator<T> { ... }
@@ -306,7 +306,7 @@ var intValidator = ioc.Get<IValidator<int>>(); // Returns a Validator<int>
 Both the service and its implementation can have as many type parameters as you want, but they must have the *same* number of type parameters (it makes sense if you think it through). However, the type parameters can appear in any order:
 
 ---
-><font color="#63aebb" face="微软雅黑">服务及其实现都可以包含任意数量的类型参数，但它们必须具有相同数量的类型参数（如果您仔细考虑，这是有意义的）。但是，类型参数可以按任何顺序出现：</font>
+><font color="#63aebb" face="微软雅黑">服务及其实现都可以包含任意数量的类型参数，但它们必须具有相同数量的类型参数（如果你仔细考虑，这是有意义的）。但是，类型参数可以按任何顺序出现：</font>
 
 ```csharp
 interface ISomeInterface<T, U> { ... }
@@ -325,7 +325,7 @@ Autobinding - 自动绑定
 StyletIoC is capable of creating bindings automatically for you.
 
 ---
-><font color="#63aebb" face="微软雅黑">StyletIoC能够自动为您创建绑定。</font>
+><font color="#63aebb" face="微软雅黑">StyletIoC能够自动为你创建绑定。</font>
 
 ### Autobinding All Concrete Types - 自动绑定所有具体类型
 
@@ -342,9 +342,17 @@ There are overloads for passing in other assemblies to search, as well.
 
 This is useful in an MVVM application, as it allows StyletIoC to resolve any of your ViewModels.
 
-### Binding a service to all implementations
+---
+><font color="#63aebb" face="微软雅黑">同样，还有一些重载允许你指定要搜索的程序集。
+
+这在 MVVM 应用程序中很有用，因为它允许 StyletIoC 解析任何 ViewModel。</font>
+
+### Binding a service to all implementations - 将服务绑定到所有实现
 
 You can also bind a service to all types which implement it, for example:
+
+---
+><font color="#63aebb" face="微软雅黑">你还可以将服务绑定到实现它的所有类型，例如：</font>
 
 ```csharp
 interface IVehicle { ... }
@@ -355,12 +363,18 @@ builder.Bind<IVehicle>().ToAllImplementations();
 
 var ioc = builder.BuildContainer();
 
-IEnumerable<IVehicle> vehicles = ioc.GetAll<IVehicle>(); // Returns { new HotHatchback(), new OldBanger() }
+IEnumerable<IVehicle> vehicles = ioc.GetAll<IVehicle>(); 
+// Returns { new HotHatchback(), new OldBanger() }
 ```
 
 Again, there are also overloads allowing you to specify which assemblies to search.
 
 This can be useful on its own (think finding all plugins), but is particularly useful when combined with unbound generics. For example:
+
+---
+><font color="#63aebb" face="微软雅黑">同样，还有一些重载允许你指定要搜索的程序集。
+
+>这本身就很有用(想想查找所有插件)，在与未绑定类型的泛型结合使用时尤为有用。例如：</font>
 
 ```csharp
 interface IValidator<T> { ... }
@@ -378,6 +392,11 @@ var stringValidator = ioc.Get<IValidator<string>>(); // Returns a StringValidato
 If you want more complex binding rules, StyletIoC doesn't provide an API for you - it barely takes any effort to do it yourself, and providing an API is just adding a lot of complexity for very little gain.
 
 However, StyletIoC does define a couple of extension methods on Type which may make your life easier:
+
+---
+><font color="#63aebb" face="微软雅黑">如果你想要更复杂的绑定规则，StyletIoC 不会为你提供这个API - 你自己仅仅需要少许努力来做它，而提供一个API 只是增加了很多复杂性而获得的收益很少。
+
+>然而，StyletIoC确实在Type上定义了一些扩展方法，这可能会让你更轻松：</font>
 
 ```csharp
 // Returns all base types
