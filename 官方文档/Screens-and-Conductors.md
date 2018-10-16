@@ -145,7 +145,7 @@ The conductors which have a single active item (regardless of how many inactive 
 All of the built-in conductors will set an item's `Parent` property to itself, if the item implements `IChild`. All of the built-in conductors additionally implement `IChildDelegate`, which allows the child to request that it be closed (by calling `CloseItem`). In the default `Screen` implementation, calling `Screen.RequestClose` will cause the screen to call `CloseItem` on its parent (provided its parent implement `IChildDelegate`), which in turn causes its parent (if it exists) to close it.
 
 ---
-><font color="#63aebb" face="微软雅黑">Conductor 有多种不同的风格，每一种都有自己的用途。一个 Conductor 可以拥有一个 ViewModel (比如一次显示一个页面的导航)，或者多个 ViewModdel。有多个 ViewModel 的 Conductor 一次只能有一个活动的 View (比如上面的 Visual Studio 示例中的 TabControl)，或者所有 ViewModel（想想有很多独立元素的网格）。Conductor 还可以添加行为，例如记录显示的 ViewModel（对导航很有用）。
+><font color="#63aebb" face="微软雅黑">Conductor 有多种不同的风格，每一种都有自己的用途。一个 Conductor 可以拥有一个 ViewModel (比如一次显示一个页面的导航)，或者多个 ViewModel。有多个 ViewModel 的 Conductor 一次只能有一个活动的 View (比如上面的 Visual Studio 示例中的 TabControl)，或者所有 ViewModel（想想有很多独立元素的网格）。Conductor 还可以添加行为，例如记录显示的 ViewModel（对导航很有用）。
 
 >与 `Screen` 类一样，Style定义了许多 conductor 感兴趣的接口，以及一些实现(取决于你想要的 conductor 行为类型)，你当然可以实现自己的接口。 
 
@@ -292,12 +292,14 @@ If you call `CloseItem` on the current `ActiveItem`, this has the same effect. I
 ---
 ><font color="#63aebb" face="微软雅黑">该 conductor 是 `Conductor<T>` 和 `Conductor<T>.Collection.OneActive` 的混合体，它提供了额外的内容:基于堆栈方式的导航。
 
->它有一个 `ActiveItem` ，但也保存了过去活动的 item 的(私有)历史记录。当您激活一个新 item 时，先前的 `ActiveItem` 被停用，并被放入历史堆栈。调用 `GoBack()` 将关闭当前的 `ActiveItem`，从历史堆栈中重新激活最上面的 item，并将其设置为新的 `ActiveItem`。 
+>它有一个 `ActiveItem` ，但也保存了过去活动的 item 的(私有)历史记录。当你激活一个新 item 时，先前的 `ActiveItem` 被停用，并被放入历史堆栈。调用 `GoBack()` 将关闭当前的 `ActiveItem`，从历史堆栈中重新激活最上面的 item，并将其设置为新的 `ActiveItem`。 
 
 >如果在当前的 `ActiveItem` 上调用 `CloseItem`，效果是相同的。如果对历史堆栈中存在的任何项调用 `CloseItem`，该项 item 被关闭并从历史堆栈中删除。调用 `Clear()` 将关闭并从历史堆栈中删除所有 item。</font>
 
 ### `WindowConductor`
 
 This one's a bit of an oddball, as it's internal and you're not expected to ever interact with it directly, but I've included it here for interest. Whenever you display a dialog or window using the `WindowManager` (this includes the window which Stylet shows when you first start your application), a new `WindowConductor` manages its lifecycle. Whenever your window or dialog is minimised, it's deactivated. Whenever it's maximized, it's activated. If your ViewModel requests that it be closed (see `RequestClose` above), the `WindowConductor` handles this. Similarly, if the user closes your window themselves, the `WindowConductor` will ask your ViewModel whether it's ready to be closed.
+
+当你使用 `WindowManager`（包括 Stylet 首次启动应用程序时显示的窗口）显示对话框或窗口时，新的 `WindowConductor` 管理其生命周期。当窗口或对话框最小化时，会被停用。最大化时，会被激活。如果的 ViewModel 请求关闭（见 `RequestClose` 上文），则 `WindowConductor` 会进行处理。同样，如果用户关闭窗口，`WindowConductor` 则会询问 ViewModel 是否关闭。
 
 [目录](./Index.md)&nbsp;&nbsp;|&nbsp;&nbsp;[BindableCollection - 绑定集合](./BindableCollection.md)

@@ -10,11 +10,11 @@
 10. [Execute: Dispatching to the UI Thread - 执行:UI线程调度](./Execute.md)
 11. [Screens and Conductors - 屏幕和指挥](./Screens-and-Conductors.md)
 12. [BindableCollection - 绑定集合](./BindableCollection.md)
-13. [[Validation using ValidatingModelBase|ValidatingModelBase]]
+13. [Validation using ValidatingModelBase - 使用 ValidatingModelBase 验证](./ValidatingModelBase.md)
 14. StyletIoC
-    1. [[Introduction|StyletIoC-Introduction]]
-    2. [[Configuration|StyletIoC-Configuration]]
-    3. [[Injection|StyletIoC-Injection]]
+    1. [StyletIoC-Introduction - StyletIoC 简介](./Ioc/StyletIoC-Introduction.md)
+    2. [StyletIoC-Configuration - StyletIoC 配置](./Ioc/StyletIoC-Configuration.md)
+    3. [StyletIoC-Injection - StyletIoC 注入](./Ioc/StyletIoC-Injection.md)
     4. [[Keys|StyletIoC-Keys]]
     5. [[Factories|StyletIoC-Factories]]
     6. [[Modules|StyletIoC-Modules]]
