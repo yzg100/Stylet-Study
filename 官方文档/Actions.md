@@ -103,10 +103,13 @@ class ViewModel
 ```
 
 
-Events
+Events - 事件
 ------
 
 But what about if you want to call a ViewModel method when an event occurs? Actions have that covered as well. The syntax is exactly the same, although there's no concept of a guard property here.
+
+---
+><font color="#63aebb" face="微软雅黑">如果你想在事件发生时调用 ViewModel 方法呢? Actions 也涵盖了这一点。语法完全相同，不过这里没有保护属性的概念。</font>
 
 ```xml
 <UserControl x:Class="MyNamespace.View"
@@ -118,6 +121,9 @@ But what about if you want to call a ViewModel method when an event occurs? Acti
 ```
 
 The method which is called must have zero, one, or two parameters. The possible signatures are:
+
+---
+><font color="#63aebb" face="微软雅黑">被调用的方法必须有 `0`、`1` 或 `2` 个参数。如下:</font>
 
 ```csharp
 public void HasNoArguments() { }
@@ -142,6 +148,17 @@ This is a very important point, and one that's worth stressing. The DataContext 
 
 You can of course alter the View.ActionTarget for individual elements, for example:
 
+---
+><font color="#63aebb" face="微软雅黑">我一直在说 在 ViewModel 上调用 Action，这并不严格。让我们进一步了解一下。
+
+>Stylet 定义了一个名为 View.ActionTarget 的继承附加属性。当 View 绑定到 ViewModel 时，View 中根元素上的 View.ActionTarget 绑定到 ViewModel，然后由 View 中的每个元素继承。调用操作时，会在 View.ActionTarget 上调用它。
+
+>默认情况下，无论当前的 DataContext 是什么，都可以在 ViewModel 上调用操作。
+
+>这是非常重要的一点，值得强调。DataContext 会在整个可视树中的多个位置发生更改。但是 View.ActionTarget 将保持不变(除非你手动更改它)。这意味着操作始终由 ViewModel 处理，而不是由绑定到的对象处理。
+
+>你当然可以更改单个元素的 View.ActionTarget，例如：</font>
+
 ```csharp
 class InnerViewModel
 {
@@ -158,7 +175,6 @@ class ViewModel
 }
 ```
 
-
 ```xml
 <UserControl x:Class="MyNamespace.View"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -170,11 +186,16 @@ class ViewModel
 
 Here, InnerViewModel.DoSomething will be invoked when the button is clicked. Also, because the View.ActionTarget is inherited, any children of the Button will also have their View.ActionTarget set to the InnewViewModel.
 
+---
+><font color="#63aebb" face="微软雅黑">单击按钮时将调用 InnerViewModel.DoSomething。此外，因为继承了 View.ActionTarget，所以Button 的任何子项也将其 View.ActionTarget 设置为 InnewViewModel。</font>
+
 Actions and Styles
 ------------------
 
 Actions will not work from style setters. The classes required to do this in WPF are all internal, which means there is no way to fix the issue. You will need to use old-fashioned Commands in this (rare) case, unfortunately.
 
+---
+><font color="#63aebb" face="微软雅黑">Actions 不会在样式设置中起作用。在 WPF 中需要这样做的类都是内部的，这意味着无法修复问题。不幸的是，在这种情况下，你只能使用老式命令。</font>
 
 Gotchas - ContextMenu and Popup
 -------------------------------
@@ -189,7 +210,18 @@ In these cases, Stylet will do the best it can to find a suitable ActionTarget (
 
 In this case, please set `s:View.ActionTarget` to a suitable value. You may struggle to get a reference to anything outside of a ContextMenu from inside of one: I suggest the [BindingProxy](http://www.thomaslevesque.com/2011/03/21/wpf-how-to-bind-to-data-when-the-datacontext-is-not-inherited/) technique.
 
-Additional Behaviour
+---
+><font color="#63aebb" face="微软雅黑">View.ActionTarget 是附加的属性，它被设置为由它所设置的任何元素的子元素继承。与任何附加属性以及 DataContext 一样，它也有一些不被继承的边界，例如:
+
+>- ContextMenu
+>- Popup
+>- Frame
+
+>在这些情况下，Stylet会尽其所能找到一个合适的ActionTarget(例如，它可能会找到与当前XAML文件中的根元素相关联的ActionTarget)，但这可能不是你所期望的(例如，它可能会忽略 `s:View.ActionTarget="{Binding ...}"` 页面中间的一条线），或者它可能（在极少数情况下）根本找不到 ActionTarget。
+
+>在这种情况下，设置 `s:View.ActionTarget` 合适的值。你可能很难从 ContextMenu 中获取对 ContextMenu 之外的任何内容的引用：我建议使用 [BindingProxy](http://www.thomaslevesque.com/2011/03/21/wpf-how-to-bind-to-data-when-the-datacontext-is-not-inherited/) 技术。</font>
+
+Additional Behaviour - 附加行为
 --------------------
 
 There are two cases which will stop an action from working properly: if the `View.ActionTarget` is null, or if the specified method on the `View.ActionTarget` doesn't exist. The default behaviour in each of these cases is as follows:
@@ -207,12 +239,31 @@ To control the behaviour when `View.ActionTarget` is null, set the `NullTarget` 
 
 For example:
 
+---
+><font color="#63aebb" face="微软雅黑">有两种情况会阻止操作正常工作：如果 `View.ActionTarget` 为 null，或者指定的方法 `View.ActionTarget` 不存在。每种情况下的默认行为如下：
+
+> |         | View.ActionTarget == null | View.ActionTarget 上没有方法
+> |---------|---------------------------|-------------------------------
+> |命令      | 启用控件                   | 单击控件时抛出异常
+> |事件      | 启用控件                   | 引发事件时抛出异常
+
+>这样做的理由是，如果 `View.ActionTarget` 为 null，你必须设置它，这样你才知道要做什么。然而，如果指定的方法在 `View.ActionTarget` 上不存在，这将是一个错误。
+
+>当然，这种行为是可配置的。
+
+>对于控件当 `View.ActionTarget` 为空时，在 `Action` 标记扩展上设置 `NullTarget` 属性，以便“启用”、“禁用”或“抛出”。(注意，当 Action 链接到事件时，`Disable` 是无效的，因为我们没有能力禁用任何东西)。
+
+>示例：</font>
+
 ```xml
 <Button Command="{s:Action MyMethod, NullTarget=Enable}"/>
 <Button Click="{s:Action MyMethod, NullTarget=Throw}"/>
 ```
 
 Similarly, you can set the `ActionNotFound` property to the same values:
+
+---
+><font color="#63aebb" face="微软雅黑">同样，你可以将‘ActionNotFound’属性设置为相同的值：</font>
 
 ```xml
 <Button Command="{s:Action MyMethod, ActionNotFound=Disable}"/>

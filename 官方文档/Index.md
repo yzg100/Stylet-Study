@@ -23,8 +23,8 @@
     9. [StyletIoC-Technical - StyletIoC 技术](./IoC/StyletIoC-Technical.md)
 15. [The ViewManager - 视图管理](./The-ViewManager.md)
 16. [Listening to INotifyPropertyChanged - 监听 INotifyPropertyChanged](./Listening-to-INotifyPropertyChanged.md)
-17. [[Design Mode Support]]
-18. [[Logging]]
+17. [Design Mode Support - 设计模式支持](./Design-Mode-Support.md)
+18. [Logging - 日志](./Logging.md)
 19. Misc
     1. [[LabelledValue]]
     2. [[DebugConverter]]
