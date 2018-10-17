@@ -16,37 +16,22 @@ To use, simply call the `ShowMessageBox` method on `IWindowManager`, like this:
 ---
 ><font color="#63aebb" face="微软雅黑">只需在 `IWindowManager` 上调用 `ShowMessageBox` 方法，如下:</font>
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+```csharp
 public MyViewModel
 {
    private readonly IWindowManager windowManager;
-&nbsp;
+
    public MyViewModel(IWindowManager windowManager)
    {
       this.windowManager = windowManager;
    }
-&nbsp;
+
    public void ShowMessagebox()
    {
-      var result = this.windowManager.ShowMessageBox(&quot;Hello&quot;);
+      var result = this.windowManager.ShowMessageBox("Hello");
    }
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Public Class MyViewModel
-&nbsp;
-    Private ReadOnly windowManager As IWindowManager
-&nbsp;
-    Public Sub New(ByVal windowManager As IWindowManager)
-        Me.windowManager = windowManager
-    End Sub
-&nbsp;
-    Public Sub ShowMessagebox()
-        Dim result = Me.windowManager.ShowMessageBox(&quot;Hello&quot;)
-    End Sub
-End Class</pre></td></tr></table>
-
+}
+```
 
 The MessageBox accepts all of the same options as as the WPF MessageBox, plus a few more.
 
@@ -70,8 +55,6 @@ If you just want to tweak the behaviour of the existing `MessageBoxViewModel`, y
 
 >如果你只想调整现有的 `MessageBoxViewModel` 的行为，可以使用以下选项：</font>
 
-
-
 ### Custom Button Text - 自定义按钮文本
 
 You can edit the button text for any of the buttons on a per-application basis by modifying `MessageBoxViewModel.ButtonLabels`, which is a dictionary holding the text to display for each button. If you just want to edit the text for a particular MessageBox, `ShowMessageBox` will accept a dictionary allowing you to do just that:
@@ -79,29 +62,17 @@ You can edit the button text for any of the buttons on a per-application basis b
 ---
 ><font color="#63aebb" face="微软雅黑">你可以编辑每个应用程序的任何按钮的文本 `MessageBoxViewModel.ButtonLabels`，这是一个包含每个按钮显示的文本的字典。如果你只想编辑特定 MessageBox 的文本，`ShowMessageBox` 接受一个允许你执行此操作的字典：</font>
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
-MessageBoxViewModel.ButtonLabels[MessageBoxResult.No] = &quot;No, thanks&quot;;
-&nbsp;
-this.windowManager.ShowMessageBox(&quot;Do you want breakfast?&quot;, 
-                                   buttons: MessageBoxButton.YesNo, 
-                                   buttonLabels: new Dictionary&lt;MessageBoxResult, string&gt;()
-        {
-            { MessageBoxResult.Yes, &quot;Yes please!&quot; },
-        });
-&nbsp;
-// Will display a MessageBox with the buttons &quot;Yes please!&quot; and &quot;No, thanks&quot;
-// 将显示带有 &quot;Yes please!&quot; 和 &quot;No, thanks&quot; 按钮的消息框。 </pre>
-</td><td valign="top"><pre lang="vb.net">
-    MessageBoxViewModel.ButtonLabels(MessageBoxResult.No) = &quot;No, thanks&quot;
-    Me.windowManager.ShowMessageBox(&quot;Do you want breakfast?&quot;,
-                                    buttons:=MessageBoxButton.YesNo,
-                                    buttonLabels:=New Dictionary(Of MessageBoxResult, String)() _
-                                    From {{MessageBoxResult.Yes, &quot;Yes please!&quot;}})
-&nbsp;
-&#39; Will display a MessageBox with the buttons &quot;Yes Please!&quot; and &quot;No, thanks&quot;</pre></td></tr></table>
+```csharp
+// Will display a MessageBox with the buttons "Yes please!" and "No, thanks"
+// 将显示带有 "Yes please!" 和 "No, thanks" 按钮的消息框。
+MessageBoxViewModel.ButtonLabels[MessageBoxResult.No] = "No, thanks";
 
+this.windowManager.ShowMessageBox("Do you want breakfast?", 
+    buttons: MessageBoxButton.YesNo, 
+    buttonLabels: new Dictionary<MessageBoxResult, string>(){
+        { MessageBoxResult.Yes, "Yes please!" },
+});
+```
 
 ### Custom Button Sets - 自定义按钮集
 

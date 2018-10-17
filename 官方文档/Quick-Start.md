@@ -69,16 +69,11 @@ The ViewModel can be any old class (for now - you might want it to be a [Screen 
 
 ---
 ><font color="#63aebb" face="微软雅黑">ViewModel 可以是任何以前的类(目前，你可能希望它是 [`Screen or Conductor`](./Screens-and-Conductors.md))。</font>
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td><pre lang="csharp">
+```csharp
 public class RootViewModel
 {
-}</pre>
-</td><td><pre lang="vb.net">
-Public Class RootViewModel
-&nbsp;
-End Class</pre></td></tr></table>
+}
+```
 
 
 Next, you'll need a bootstrapper. For now, you don't need anything special - just something to identify your root ViewModel. Later, you'll be able to configure your IoC container here, as well as other application-level stuff.
@@ -86,16 +81,11 @@ Next, you'll need a bootstrapper. For now, you don't need anything special - jus
 ---
 ><font color="#63aebb" face="微软雅黑">接下来，你需要一个 bootstrapper。现在，你不需要任何特殊的东西 - 只需要识别你的根 ViewModel。稍后，你将能够在此处配置 IoC 容器以及其他应用程序级别的内容。</font>
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td><pre lang="csharp">
-public class Bootstrapper : Bootstrapper&lt;RootViewModel&gt;
+```csharp
+public class Bootstrapper : Bootstrapper<RootViewModel>
 {
-}</pre></td><td><pre lang="vb.net">
-Public Class Bootstrapper Inherits Bootstrapper(Of RootViewModel)
-&nbsp;
-End Class</pre></td></tr></table>
-
+}
+```
 
 Finally, this needs to be referenced as a resource in your `App.xaml`. You'll need to remove the `StartUri` attribute, and add `xmlns` entries for Stylet and your own application. Finally, you'll need to add Stylet's `ApplicationLoader` to the resources, and identify the bootstrapper you created above.
 

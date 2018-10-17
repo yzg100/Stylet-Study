@@ -1,6 +1,9 @@
 
 You have a button, and you want to click it and execute a method on your ViewModel? Actions cover this use-case.
 
+---
+><font color="#63aebb" face="微软雅黑">你有一个按钮，点击它并在 ViewModel 上执行一个方法? Action 覆盖了这个用例。</font>
+
 Actions and Methods
 -------------------
 
@@ -8,26 +11,20 @@ In 'traditional' WPF, you'd create a property on your ViewModel which implements
 
 Stylet solves this by introducing Actions. Look at this:
 
+---
+><font color="#63aebb" face="微软雅黑">在 “传统” 的WPF中，在 ViewModel 上创建一个实现 [ICommand] (http://msdn.microsoft.com/en-us/library/system.windows.input.icommand%28v=vs.110%29.aspx) 接口的属性，并将按钮的 Command 属性绑定到该属性。这很好用（ViewModel 对 View 一无所知，并且不需要后台代码），但它有点乱 - 你真的想在 ViewModel 上调用一个方法，而不是在某些属性上执行方法。
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
-Class ViewModel
+>Stylet 通过引入 Action 来解决这个问题。如下：</font>
+
+```csharp
+class ViewModel
 {
    public void DoSomething()
    {
-      Debug.WriteLine(&quot;DoSomething called&quot;);
+      Debug.WriteLine("DoSomething called");
    }
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class ViewModel
-&nbsp;
-  Public Sub DoSomething()
-&nbsp;
-  Console.WriteLine(&quot;DoSomething called&quot;)
-&nbsp;
-  End Sub
-End Class</pre></td></tr></table>
+}
+```
 
 ```xml
 <UserControl x:Class="MyNamespace.View"
@@ -44,26 +41,22 @@ It's that simple.
 
 If your method accepts a single argument, the value of the button's CommandParameter property will be passed. For example:
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+---
+><font color="#63aebb" face="微软雅黑">你可能已经猜到了，单击按钮要调用的 ViewModel 上名为 DoSomething 的方法。
+
+>就这么简单。
+
+>如果你的方法接受单个参数，则将传递按钮的 CommandParameter 属性的值。例如：</font>
+
+```csharp
 class ViewModel
 {
    public void DoSomething(string argument)
    {
-      Debug.WriteLine(String.Format(&quot;Argument is {0}&quot;, argument));
+      Debug.WriteLine(String.Format("Argument is {0}", argument));
    }
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class ViewModel
-&nbsp;
-  Public Sub DoSomething(argument As String)
-&nbsp;
-  Debug.WriteLine(String.Format(&quot;Argument is {0}&quot;, argument)
-&nbsp;
-  End Sub
-End Class</pre></td></tr></table>
-
+}
+```
 
 ```xml
 <UserControl x:Class="MyNamespace.View"
@@ -76,7 +69,9 @@ End Class</pre></td></tr></table>
 
 Note that Actions also work on any ICommand property, on anything (e.g. a [KeyBinding](http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx)).
 
-Guard Properties
+请注意，Actions 也适用于任何 ICommand 属性（例如:[KeyBinding](http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx)）。
+
+Guard Properties - 保护属性
 ----------------
 
 You can also control whether you button is enabled just as easily, using *Guard Properties*. A guard property for a given method is a boolean property which has the name "Can\<method name\>", so if your method is called "DoSomething", the corresponding guard property is called "CanDoSomething".
@@ -85,32 +80,27 @@ Stylet will check whether a guard property exists, and if so, will disable the b
 
 For example:
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+---
+><font color="#63aebb" face="微软雅黑">你还可以使用 *保护属性* 轻松地控制按钮是否启用。给定方法的保护属性是一个 boolean 属性，其名称为 `Can<方法名称>`，因此如果你的方法被称为 `DoSomething`，相应的保护属性被称为 `CanDoSomething`。
+
+>Stylet 将检查 保护属性是否存在，如果存在，且返回 false 则禁用按钮，如果返回 true 则启用按钮。它还会监视该属性的 PropertyChanged 通知，因此你可以更改按钮是否启用。
+
+>示例：</font>
+
+```csharp
 class ViewModel
 {
    public bool CanDoSomething
    {
       get { return this.someOtherConditionIsSatisfied(); }
    }
+   
    public void DoSomething()
    {
       Debug.WriteLine(&quot;DoSomething called&quot;);
-   }</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class ViewModel
-&nbsp;
-  Public ReadOnly Property CanDoSomething As Boolean
-        Get
-            Return Me.someOtherConditionIsSatisfied()
-        End Get
-    End Property
-&nbsp;
-    Public Sub DoSomething()
-        Debug.WriteLine(&quot;DoSomething called&quot;)
-    End Sub
-End Class</pre></td></tr></table>
+   }
+}
+```
 
 
 Events
@@ -129,28 +119,15 @@ But what about if you want to call a ViewModel method when an event occurs? Acti
 
 The method which is called must have zero, one, or two parameters. The possible signatures are:
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+```csharp
 public void HasNoArguments() { }
-&nbsp;
+
 // This can accept EventArgs, or a subclass of EventArgs
 public void HasOneSingleArgument(EventArgs e) { }
-&nbsp;
-// Again, a subclass of EventArgs is OK
-public void HasTwoArguments(object sender, EventArgs e) { }</pre>
-</td><td valign="top"><pre lang="vb.net">
-Public Sub HasNoArguments()
-End Sub
-&nbsp;
-&#39; This can accept EventArgs, or a subclass of EventArgs
-Public Sub HasOneSingleArgument(ByVal e As EventArgs)
-End Sub
-&nbsp;
-&#39;Again, a subclass of EventArgs is OK
-Public Sub HasTwoArguments(ByVal sender As Object, ByVal e As EventArgs)
-End Sub</pre></td></tr></table>
 
+// Again, a subclass of EventArgs is OK
+public void HasTwoArguments(object sender, EventArgs e) { }
+```
 
 The View.ActionTarget
 ---------------------
@@ -165,13 +142,12 @@ This is a very important point, and one that's worth stressing. The DataContext 
 
 You can of course alter the View.ActionTarget for individual elements, for example:
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+```csharp
 class InnerViewModel
 {
    public void DoSomething() { }
 }
+
 class ViewModel
 {
    public InnerViewModel InnerViewModel { get; private set; }
@@ -179,24 +155,8 @@ class ViewModel
    {
       this.InnerViewModel = new InnerViewModel();
    }
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class InnerViewModel
-&nbsp;
-    Public Sub DoSomething()
-    End Sub
-&nbsp;
-End Class
-&nbsp;
-Class ViewModel
-&nbsp;
-    Public Property InnerVM As InnerViewModel
-&nbsp;
-    Public Sub New()
-        Me.InnerVM = New InnerViewModel()
-    End Sub
-&nbsp;
-End Class</pre></td></tr></table>
+}
+```
 
 
 ```xml

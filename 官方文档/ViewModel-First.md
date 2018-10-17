@@ -16,25 +16,16 @@ Let's start by defining the View-first approach, and what exactly I mean by that
 ---
 ><font color="#63aebb" face="微软雅黑">让我们首先定义View-first方法，MVVM指出，ViewModel 应该不知道 View，但是 View 应该知道 ViewModel。附加 View 和 ViewModel 的方法是让 View 在其代码后面构造它的 ViewModel - 像这样：</font>
 
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td><pre lang="csharp">
+```csharp
 public partial class MyView : Window
 {
    public MyView()
    {
       InitializeComponent();
-&nbsp;
       this.DataContext = new MyViewModel();
    }
-}</pre>
-</td><td><pre lang="vb.net">Partial Public Class MyView : Inherits Window
-&nbsp;
-  Public Sub New()
-    InitializeComponent()
-&nbsp;
-    Me.DataContext = new MyViewModel()
-&nbsp;
-End Class</pre></td></tr></table>
+}
+```
 
 
 This is fine. Views can create and own other views, meaning that you can compose your views into a hierarchy. All well and good.
@@ -111,21 +102,14 @@ There's another part of this trick, which is best explained by example:
 
 >这是技巧的另一部分，用例子解释：</font>
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td><pre lang="csharp">
+```csharp
 public class ShellViewModel
 {
    public TopBarViewModel TopBar { get; private set; }
    // Stuff to instantiate and assign TopBarViewModel
    // 实例化和分配 TopBarViewModel
-}</pre>
-</td><td><pre lang="vb.net">
-Public Class ShellViewModel
-&nbsp;
-  Public Property TopBar as TopBarViewModel
-  &#39; Stuff to instantiate and assign TopBarViewModel
-End Class</pre></td></tr></table>
+}
+```
 
 
 ```xml

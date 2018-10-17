@@ -17,60 +17,36 @@ Events are classes - do whatever you want with them. For example:
 
 >事件是类 - 用它们做任何你想做的事情。例如：</font>
 
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+```csharp
 class MyEvent { 
-&nbsp;
   // Do something 
-&nbsp;
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class MyEvent
-&nbsp;
-  &#39; Do Something
-&nbsp;
-End Class</pre></td></tr></table>
+}
+```
 
 Subscribers must implement `IHandle<T>`, where `T` is the event type they are interested in receiving (they can of course implement multiple `IHandle<T>`'s for multiple `T`'s). They must then get hold of an instance of the IEventAggregator, and subscribe themselves, for example:
 
 ---
 ><font color="#63aebb" face="微软雅黑">订阅者必须实现 `IHandle<T>`，其中 `T` 是他们感兴趣的接收事件类型(他们当然可以为多个 `T` 实现多个 `IHandle<T>`)。然后，他们必须获得IEventAggregator 的一个实例，并自己订阅，例如:</font>
 
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
-class Subscriber : IHandle&lt;MyEvent&gt;, IHandle&lt;MyOtherEvent&gt;
+```csharp
+class Subscriber : IHandle<MyEvent>, IHandle<MyOtherEvent>
 {
    public Subscriber(IEventAggregator eventAggregator)
    {
       eventAggregator.Subscribe(this);
    }
-&nbsp;
+
    public void Handle(MyEvent message)
    {
       // ...
    }
-&nbsp;
+
    public void Handle(MyOtherEvent message)
    {
       // ...
    }
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class Subscriber : Implements IHandle(Of MyEvent)
-&nbsp;
-  Public Sub New(ByRef eventAggregator as IEventAggregator)
-  eventAggregator.Subscribe(Me)
-  End Sub
-&nbsp;
-  Public Sub Handle(message as MyEvent) Implements IHandle(Of MyEvent).Handle
-  &#39; ...
-  End Sub
-&nbsp;
-  Public Sub Handle(message as MyOtherEvent) Implements IHandle(Of MyOtherEvent).Handle
-  &#39; ...
-  End Sub
-&nbsp;
-End Class</pre></td></tr></table>
+}
+```
 
 For VB.NET users, the `Sub New()` passing the eventAggregator by reference will probably fail across namespaces, and can be irritating to have to define with each new subscriber. Thus, it may be easier to define your eventAggregator in a global module, then subscribe directly to it instead of passing its reference along to each new ViewModel you call. 
 
@@ -104,9 +80,7 @@ Publishers must also get an instance of the IEventAggregator, but they don't nee
 ---
 ><font color="#63aebb" face="微软雅黑">发布者还必须获得 IEventAggregator 的实例，但他们不需要自己订阅 - 每当他们想要发布一个事件时他们只需要调用IEventAggregator.Publish。例如:</font>
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
+```csharp
 class Publisher
 {
    private IEventAggregator eventAggregator;
@@ -114,26 +88,13 @@ class Publisher
    {
       this.eventAggregator = eventAggregator;
    }
-&nbsp;
+
    public void PublishEvent()
    {
       this.eventAggregator.Publish(new MyEvent());
    }
-}</pre>
-</td><td valign="top"><pre lang="vb.net">
-Class Publisher 
-&nbsp;
-  Dim eventAggregator as IEventAggregator
-&nbsp;
-  Public Sub New(ByRef eventAggregator as IEventAggregator)
-    Me.eventAggregator = eventAggregator
-  End Sub
-&nbsp;
-  Public Sub PublishEvent()
-  Me.eventAggregator.Publish(New MyEvent())
-  End Sub
-&nbsp;
-End Class</pre></td></tr></table>
+}
+```
 
 Again, for VB.NET users, if you've set up the global module then you don't need to pass the eventAggregator to the Publisher. You can just publish directly to the global eventAggregator;
 
@@ -157,11 +118,9 @@ Because the IEventAggregator is weakly binding, subscribers don't need to unsubs
 ---
 ><font color="#63aebb" face="微软雅黑">因为 IEventAggregator 的绑定能力很弱，所以订阅者不需要自己取消订阅 — IEventAggregator 不会保留他们。然而，如果订阅方想要取消订阅，则可以调用。</font>
 
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td valign="top"><pre lang="csharp">
-IEventAggregator.Unsubscribe(this);</pre>
-</td><td valign="top"><pre lang="vb.net">
-IEventAggregator.UnSubscribe(Me)</pre></td></tr></table>
+```csharp
+IEventAggregator.Unsubscribe(this);
+```
 
 
 Publishing synchronously and asynchronously - 同步和异步发布
