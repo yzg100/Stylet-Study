@@ -141,6 +141,11 @@ Abstract factories are similar to func factories, but instead of every factory h
 
 Consider this example:
 
+---
+><font color="#63aebb" face="微软雅黑">抽象工厂类似于功能工厂，但不是每个工厂都有 `Func<ISomeInterface>` 类型，而是定义自己的工厂。
+
+>考虑这个例子：</font>
+
 ```csharp
 interface IDialogViewModelFactory
 {
@@ -169,6 +174,13 @@ But writing that implementation of `IDialogViewModelFactory` is a bit of a pain,
 
 To take advantage of this, use the binding syntax `builder.Bind<IFactoryInterfaceType>().ToAbstractFactory()`, for example:
 
+---
+><font color="#63aebb" face="微软雅黑">在最基本的情况下，你可以提供 `IDialogViewModelFactory` 的简单实现，它只调用IoC容器以供生产使用，或者你可以提供测试模拟。
+
+>但是编写 `IDialogViewModelFactory` 的实现有点麻烦，StyletIoC 有解决方案。与其他几个 IoC 容器一样，StyletIoC 能够接受这样的接口，并为你生成实现(不同之处在于StyletIoC 不需要任何依赖关系来执行此操作)。
+
+>要使用此功能，请使用绑定语法 `builder.Bind<IFactoryInterfaceType>().ToAbstractFactory()`，例如：</font>
+
 ```csharp
 public interface IDialogViewModelFactory
 {
@@ -182,6 +194,9 @@ builder.Bind<IDialogViewModelFactory>().ToAbstractFactory();
 
 Such factory methods can also create collections of types, for example:
 
+---
+><font color="#63aebb" face="微软雅黑">这样的工厂方法还可以创建类型集合，例如:</font>
+
 ```csharp
 public interface IVehicleFactory
 {
@@ -189,7 +204,7 @@ public interface IVehicleFactory
 }
 ```
 
-### Restrictions
+### Restrictions - 限制
 
 
 There are a few things to bear in mind when writing your factory interface. These are expanded on below:
@@ -201,9 +216,21 @@ StyletIoC generates an implementation of the factory interface in a different as
 
 StyletIoC only knows how to generate method implementations for methods which return something (i.e. that aren't `void`), and which take zero parameters, or a single string parameter (used as a key, covered below).
 
-### Using Keys With Abstract Factories
+---
+><font color="#63aebb" face="微软雅黑">编写工厂接口时需要注意几点。内容如下：
+>1. 接口必须是公开的，或者在 `AssemblyInfo.cs` 文件中必须添加 `[assembly: InternalsVisibleTo(StyletIoC.FactoryAssemblyName)]`。
+>2. 工厂中的每个方法都必须返回一个在 IoC 容器中注册的类型，或者该类型的 IEnumerable，并且具有零参数或单个字符串参数。
+
+>StyletIoC在不同的程序集中生成工厂接口的实现，因此你的接口必须是公开的，或者把这个程序集标记为 ‘friend’ (使用 `[assembly: InternalsVisibleTo(StyletIoC.FactoryAssemblyName)]`)。你可能希望你的工厂接口是公共的（因此你可以在编写单元测试时手动提供实现）。
+
+>StyletIoC 只知道如何为返回某项内容(即不是 `void`)的方法生成方法实现，并且该方法采用零参数或单个字符串参数（Key，如下所述）。</font>
+
+### Using Keys With Abstract Factories - 使用带有 Key 的抽象工厂
 
 There are a number of different ways you specify the key to use when StyletIoC's implementation creates a new instance of a type (see [[StyletIoC Keys]]). The first is using the `[Inject(Key = "key")]` attribute:
+
+---
+><font color="#63aebb" face="微软雅黑">当 StyletIoC 的实现创建类型的新实例时，有许多不同的方法可以指定要使用的 Key（请参阅 [StyletIoC-Keys](./StyletIoC-Keys.md)）。第一个是使用 `[Inject(Key = "key")]` 属性：</font>
 
 ```csharp
 public interface IDialogViewModelFactory
@@ -215,20 +242,25 @@ public interface IDialogViewModelFactory
 
 You can also create methods which take a single string parameter, which will be used:
 
+---
+><font color="#63aebb" face="微软雅黑">你还可以创建采用单个字符串参数的方法，该参数将被使用：</font>
+
 ```csharp
 public interface IDialogViewModelFactory
 {
    DialogViewModel CreateDialogViewModel(string key);
 }
 
-// ... then
+// ... 然后
 
 this.dialogViewModel.CreateDialogViewModel("someKey");
 ```
 
-### Under The Hood
+### Under The Hood - 底层
 
 Under the hood, StyletIoC generates a type with an implementation which looks a lot like this:
+
+底层，StyletIoC 生成一个类型，如下：
 
 ```csharp
 public interface IFactoryInterface

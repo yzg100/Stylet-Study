@@ -15,14 +15,14 @@
     1. [StyletIoC-Introduction - StyletIoC 简介](./Ioc/StyletIoC-Introduction.md)
     2. [StyletIoC-Configuration - StyletIoC 配置](./Ioc/StyletIoC-Configuration.md)
     3. [StyletIoC-Injection - StyletIoC 注入](./Ioc/StyletIoC-Injection.md)
-    4. [[Keys|StyletIoC-Keys]]
-    5. [[Factories|StyletIoC-Factories]]
-    6. [[Modules|StyletIoC-Modules]]
-    7. [[Misc|StyletIoC-Misc]]
-    8. [[Performance|StyletIoC-Performance]]
-    9. [[Technical|StyletIoC-Technical]]
-15. [[The ViewManager]]
-16. [[Listening to INotifyPropertyChanged]]
+    4. [StyletIoC-Keys](./Ioc/StyletIoC-Keys.md)
+    5. [StyletIoC-Factories - StyletIoC 工厂](./Ioc/StyletIoC-Factories.md)
+    6. [StyletIoC-Modules - StyletIoC 模块](./IoC/StyletIoC-Modules.md)
+    7. [StyletIoC-Misc - StyletIoC 杂项](./IoC/StyletIoC-Misc.md)
+    8. [StyletIoC-Performance - StyletIoC 性能](./IoC/StyletIoC-Performance.md)
+    9. [StyletIoC-Technical - StyletIoC 技术](./IoC/StyletIoC-Technical.md)
+15. [The ViewManager - 视图管理](./The-ViewManager.md)
+16. [Listening to INotifyPropertyChanged - 监听 INotifyPropertyChanged](./Listening-to-INotifyPropertyChanged.md)
 17. [[Design Mode Support]]
 18. [[Logging]]
 19. Misc
