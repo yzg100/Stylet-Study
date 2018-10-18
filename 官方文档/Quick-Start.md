@@ -1,7 +1,9 @@
 
 Want to get up and running as quickly as possible? This is the right place!
 
-想要尽快启动并运行？就是这！
+---
+><font color="#63aebb" face="微软雅黑">想要尽快启动并运行？就是这！</font>
+
 Automatic Option - 自动选择
 ----------------
 
@@ -30,7 +32,7 @@ Happy coding!
 
 >注意：由于 Nuget 原因在 VS 2013 或更早版本中不起作用，所以请遵照下面的“手动选项”部分。
 
->编码快乐！</font>
+>祝：编码快乐！</font>
 
 Manual Option - 手动选择
 -------------
@@ -53,7 +55,7 @@ Next, you'll need a root View and a ViewModel. The View has to be a `Window`, bu
 
 >首先，删除 `MainWindow.xaml` 和 `MainWindow.xaml.cs/vb`。你不需要它们。
 
->接下来，你将需要一个 Root View 和一个ViewModel。View 必须是 `Window`，除此之外没有其他限制。
+>接下来，你将需要一个 Root View 和一个 ViewModel。View 必须是 `Window`，除此之外没有其他限制。
 </font>
 
 ```xml
@@ -68,7 +70,7 @@ Next, you'll need a root View and a ViewModel. The View has to be a `Window`, bu
 The ViewModel can be any old class (for now - you might want it to be a [Screen or Conductor](https://github.com/canton7/Stylet/wiki/Screens-and-Conductors)).
 
 ---
-><font color="#63aebb" face="微软雅黑">ViewModel 可以是任何以前的类(目前，你可能希望它是 [`Screen or Conductor`](./Screens-and-Conductors.md))。</font>
+><font color="#63aebb" face="微软雅黑">ViewModel 可以是任何以前的类(目前，它应该是 [`Screen or Conductor`](./Screens-and-Conductors.md))。</font>
 ```csharp
 public class RootViewModel
 {
@@ -79,7 +81,7 @@ public class RootViewModel
 Next, you'll need a bootstrapper. For now, you don't need anything special - just something to identify your root ViewModel. Later, you'll be able to configure your IoC container here, as well as other application-level stuff.
 
 ---
-><font color="#63aebb" face="微软雅黑">接下来，你需要一个 bootstrapper。现在，你不需要任何特殊的东西 - 只需要识别你的根 ViewModel。稍后，你将能够在此处配置 IoC 容器以及其他应用程序级别的内容。</font>
+><font color="#63aebb" face="微软雅黑">接下来，你需要一个 bootstrapper。现在，你不需要任何特殊的东西 - 只需要识别你的 Root ViewModel。然后你可以在此配置 IoC 容器以及其他应用程序级别的内容。</font>
 
 ```csharp
 public class Bootstrapper : Bootstrapper<RootViewModel>
@@ -114,7 +116,7 @@ It should look something like this:
 That's it! Run that, and you should get a window with 'Hello World' in it.
 
 ---
-><font color="#63aebb" face="微软雅黑">就是这样!运行它，你会得到一个带有 “Hello World” 的窗口。</font>
+><font color="#63aebb" face="微软雅黑">就是这样!运行它，你会看到一个带有 “Hello World” 的窗口。</font>
 
 The ApplicationLoader
 ---------------------
@@ -123,7 +125,7 @@ It's worth noting that `<s:ApplicationLoader>` above is a ResourceDictionary sub
 This allows it to load in Stylet's built-in resources (see [[Screens and Conductors]]). You can choose not to load Stylet's resources like this:
 
 ---
-><font color="#63aebb" face="微软雅黑">值得注意的是，<s:ApplicationLoader> 是 ResourceDictionary 的子类。这允许它加载 Stylet 的内置资源(参见[`Screen or Conductor`](./Screens-and-Conductors.md))。你可以选择不加载 Stylet 的资源，如下所示：</font>
+><font color="#63aebb" face="微软雅黑">值得注意的是，`<s:ApplicationLoader>` 是 ResourceDictionary 的子类。这允许它加载 Stylet 的内置资源(参见[`Screen or Conductor`](./Screens-and-Conductors.md))。你也可以选择不加载 Stylet 的资源，如下：</font>
 
 ```xml
 <s:ApplicationLoader LoadStyletResources="False">
@@ -157,7 +159,7 @@ If you want to add your own Resources / ResourceDictionaries to the Application,
 If this makes you uncomfortable for some reason, you can also do this:
 
 ---
-><font color="#63aebb" face="微软雅黑">如果这让你感到不爽，你也可以这样做： </font>
+><font color="#63aebb" face="微软雅黑">如果这让你感到不爽，你也可以这样： </font>
 
 ```xml
 <Application.Resources>

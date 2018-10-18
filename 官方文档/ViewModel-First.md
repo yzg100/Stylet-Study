@@ -4,7 +4,7 @@ The ViewModel-first approach is one that's crucial to Stylet's architecture, but
 Hopefully this article will make everything clear.
 
 ---
-><font color="#63aebb" face="微软雅黑">ViewModel-first方法对于Stylet的体系结构至关重要，但如果你以传统的View-first方式学习MVVM，则不直观。
+><font color="#63aebb" face="微软雅黑">ViewModel-first方法对于 Stylet 体系结构至关重要，如果你以传统的 View-first 方式学习 MVVM，则不直观。
 
 >希望这篇文章能弄清楚一切。</font>
 
@@ -54,7 +54,7 @@ Now say that `TopBarView` has a field containing some data you want to update, f
 ---
 ><font color="#63aebb" face="微软雅黑">其中 `TopBarView` 有自己的 ViewModel `TopBarViewModel`。
 
-现在假设 `TopBarView` 有你要更新的数据的字段，例如当前页面的标题。`ShellViewModel` 知道这一点，但是 `TopBarViewModel` 没有。将依赖属性暴露在 `TopBarView` 上，并将其绑定到 `ShellViewModel` 中，如下：</font>
+>现在假设 `TopBarView` 有你要更新的数据的字段，例如当前页面的标题。`ShellViewModel` 知道这一点，但是 `TopBarViewModel` 没有。将依赖属性暴露在 `TopBarView` 上，并将其绑定到 `ShellViewModel` 中，如下：</font>
 
 ```xml
 <Window x:Class="MyNamespace.ShellView" .... x:Name="rootObject">

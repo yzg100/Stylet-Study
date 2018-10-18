@@ -7,14 +7,12 @@ Example bootstrapper, using StyletIoC:
 ---
 ><font color="#63aebb" face="微软雅黑">Bootstrapper 负责引导你的应用程序。它配置 IoC 容器，创建 Root ViewModel 的新实例并使用 `WindowManager` 进行显示。它还提供了各种功能，如下。
 
->Bootstrapper 有两种形式:`BootstrapperBase<TRootViewModel>` 需要你自己配置 IoC 容器，`Bootstrapper<TRootViewModel>` 使用 Stylet 的内置IoC 容器 StyletIoC。
+>Bootstrapper 有两种形式: `BootstrapperBase<TRootViewModel>` 需要你自己配置 IoC 容器，`Bootstrapper<TRootViewModel>` 使用 Stylet 的内置 IoC 容器 StyletIoC。
 
->使用StyletIoC 的 Bootstrapper 示例:</font>
+>使用 StyletIoC 的 Bootstrapper 示例:</font>
 
-&nbsp;
-<table><tr><td>C#</td><td>VB.NET</td>
-<tr><td><pre lang="csharp">
-class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
+```csharp
+class Bootstrapper : Bootstrapper<MyRootViewModel>
 {
    protected override void OnStart()
    {
@@ -24,7 +22,7 @@ class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
         // Set up things like logging, etc
         //设置日志记录等内容
    }
-&nbsp;
+
    protected override void ConfigureIoC(IStyletIoCBuilder builder)
    {
         // Bind your own types. Concrete types are automatically self-bound.
@@ -32,7 +30,7 @@ class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
 
       builder.Bind&lt;IMyInterface&gt;().To&lt;MyType&gt;();
    }
-&nbsp;
+
    protected override void Configure()
    {
         // This is called after Stylet has created the IoC container, so this.Container exists, but before the
@@ -42,7 +40,7 @@ class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
         // Configure your services, etc, in here
         // 在此处配置你的服务等等
    }
-&nbsp;
+
    protected override void OnLaunch()
    {
         // This is called just after the root ViewModel has been launched
@@ -51,54 +49,20 @@ class Bootstrapper : Bootstrapper&lt;MyRootViewModel&gt;
         // Something like a version check that displays a dialog might be launched from here
         // 可以在这启动类似于显示对话框的版本检查
    }
-&nbsp;
+
    protected override void OnExit(ExitEventArgs e)
    {
         // Called on Application.Exit
         // 在 Application.Exit 上调用
    }
-&nbsp;
+
    protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
    {
         // Called on Application.DispatcherUnhandledException
         // 在 Application.DispatcherUnhandledException 上调用
    }
-}</pre>
-</td><td><pre lang="vb.net">
-Public Class Bootstrapper : Inherits Bootstrapper(Of MyRootModel)
-    Protected Overrides Sub OnStart()
-        &#39; This Is called just after the application Is started, but before the IoC container Is set up.
-        &#39; Set up things Like logging, etc
-    End Sub
-&nbsp;
-    Protected Overrides Sub ConfigureIoC(ByVal builder As IStyletIoCBuilder)
-        &#39; Bind your own types. Concrete types are automatically self-bound.
-        builder.Bind(Of IMyInterface).To(Of MyType)()
-    End Sub
-&nbsp;
-    Protected Overrides Sub Configure()
-        &#39; This Is called after Stylet has created the IoC container, so this.Container exists, but before the
-        &#39; Root ViewModel Is launched.
-        &#39; Configure your services, etc, in here
-    End Sub
-&nbsp;
-    Protected Overrides Sub OnLaunch()
-        &#39; This Is called just after the root ViewModel has been launched
-        &#39; Something Like a version check that displays a dialog might be launched from here
-&nbsp;
-    End Sub
-&nbsp;
-    Protected Overrides Sub OnExit(ByVal e As ExitEventArgs)
-        &#39; Called on Application.Exit
-    End Sub
-&nbsp;
-    Protected Overrides Sub OnUnhandledException(ByVal e As DispatcherUnhandledExceptionEventArgs)
-        &#39; Called on Application.DispatcherUnhandledException
-&nbsp;
-    End Sub
-End Class</pre></td></tr></table>
-
-
+}
+```
 
 Using a Custom IoC Container - 使用自定义IoC容器
 ----------------------------
@@ -110,11 +74,11 @@ Note that the Stylet nuget package / dll don't include these, as it would add un
 Copy the bootstrapper you want from the above link into your project somewhere. Then subclass it, as you would normally subclass `Bootstrapper<TRootViewModel>`, documented above. Then add your subclass to your App.xaml.cs, as documented in [[Quick Start]], e.g.
 
 ---
-><font color="#63aebb" face="微软雅黑">在 Style 中使用 IoC 容器非常简单。在 [Bootstrappers project](https://github.com/canton7/Stylet/tree/master/Bootstrappers) 中包括了许多流行的 IoC 容器的引导程序.这些都是经过单元测试但未经过实战测试：请任意定制它们。
+><font color="#63aebb" face="微软雅黑">在 Style 中使用 IoC 容器非常简单。在 [Bootstrappers project](https://github.com/canton7/Stylet/tree/master/Bootstrappers) 中包括了许多流行的 IoC 容器的 bootstrappers.这些都是经过单元测试但未经过实战测试：请任意定制它们。
 
 >请注意，Stylet 的 nuget 包中不包含这些dll，因为它会增加不必要的依赖项。同样，我不发布 IoC 容器特定包，因为这是浪费精力事情。
 
->将你想要的 bootstrapper 从上面的链接复制到你的项目中使用它。正如你使用 `Bootstrapper<TRootViewModel>` 一样，在上面有文档说明。然后将子类添加到App.xaml中。如[快速启动](./Quick-Start.md)中一样。
+>将你想要的 bootstrapper 从上面的链接复制到你的项目中使用它。正如你使用 `Bootstrapper<TRootViewModel>` 一样，在上面有文档说明。然后将子类添加到App.xaml中。如 [快速入门](./Quick-Start.md) 中一样。
 </font>
 
 ```csharp
@@ -142,6 +106,6 @@ public class Bootstrapper : AutofacBootstrapper<ShellViewModel>
 If you want to write your own bootstrapper for another IoC container, that's easy too. Take a look at the bootstrappers above to see what you need to do.
 
 ---
-><font color="#63aebb" face="微软雅黑">如果你想为另一个 IoC 容器编写自己的引导程序，那也很容易。看看上面的bootstrappers，看看你需要做什么。</font >
+><font color="#63aebb" face="微软雅黑">如果你想为另一个 IoC 容器编写自己的引导程序，那也很容易。看看上面的 bootstrappers，看看你需要做什么。</font >
 
 [目录](./Index.md)&nbsp;&nbsp;|&nbsp;&nbsp;[ViewModel First - 视图模型优先](./ViewModel-First.md)
