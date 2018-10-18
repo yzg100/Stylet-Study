@@ -25,20 +25,10 @@
 16. [Listening to INotifyPropertyChanged - 监听 INotifyPropertyChanged](./Listening-to-INotifyPropertyChanged.md)
 17. [Design Mode Support - 设计模式支持](./Design-Mode-Support.md)
 18. [Logging - 日志](./Logging.md)
-19. Misc
-    1. [[LabelledValue]]
-    2. [[DebugConverter]]
-    3. [[BoolToVisibilityConverter]]
-    4. [[IoC: Static Service Locator]]
-
-- - -
-
- - [[Contributing]]
- - [[Testing and Known Issues]]
- - [[Rake]]
- - [[Comparison to Caliburn.Micro]]
- - [[License]]
-
-- - -
+19. Misc - 杂项
+    1. [LabelledValue](./LabelledValue.md)
+    2. [DebugConverter](./DebugConverter.md)
+    3. [BoolToVisibilityConverter](./BoolToVisibilityConverter.md)
+    4. [IoC: Static Service Locator - 静态服务定位](./IoC-Static-Service-Locator.md)
 
 [[Tutorial|1. Introduction]] 
