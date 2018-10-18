@@ -33,7 +33,7 @@ This is fine. Views can create and own other views, meaning that you can compose
 The crunch comes when you've composed a couple of views, say something like this, where a shell contains a top bar and a frame, inside which any page can be shown:
 
 ---
-><font color="#63aebb" face="微软雅黑">View 可以创建和拥有其他 View，你的 View 可以由多个 View 组合而成。 
+><font color="#63aebb" face="微软雅黑">View 可以创建和拥有其他 View，一个 View 可以由多个 View 组合而成。 
 
 >当你组合了几个 View 时，就会遇到困难。比如，一个 shell 包含一个顶部工具栏和一个框架，在其中可以显示任何页面： </font>
 
@@ -54,7 +54,7 @@ Now say that `TopBarView` has a field containing some data you want to update, f
 ---
 ><font color="#63aebb" face="微软雅黑">其中 `TopBarView` 有自己的 ViewModel `TopBarViewModel`。
 
->现在假设 `TopBarView` 有你要更新的数据的字段，例如当前页面的标题。`ShellViewModel` 知道这一点，但是 `TopBarViewModel` 没有。将依赖属性暴露在 `TopBarView` 上，并将其绑定到 `ShellViewModel` 中，如下：</font>
+>现在假设 `TopBarView` 有你要更新的数据的字段，例如当前页面的标题。`ShellViewModel` 知道，而 `TopBarViewModel` 不知道。将依赖属性暴露在 `TopBarView` 上，并将其绑定到 `ShellViewModel` 中，如下：</font>
 
 ```xml
 <Window x:Class="MyNamespace.ShellView" .... x:Name="rootObject">
@@ -76,9 +76,9 @@ Either way, this approach has some nastiness.
 ---
 ><font color="#63aebb" face="微软雅黑">这非常糟糕。你现在已经有一个和 View 绑定的 `ShellViewModel`。
 
->另一个是显示窗口和对话框。在传统的 MVVM 中，这有点麻烦。一种方法是从 ViewModel 内部实例化并显示 View (使用 `Show()` 或 `ShowDialog()`)(使其成为或至少其中的一部分，是不可测试的)。更好的选择是实例化你想要显示在 View 代码中的 View，并在那里显示它。这意味着你需要建立一种方法来告诉 View 显示这个对话框，以及一种将对话框的结果返回到 ViewModel 的方法。
+>另一个是显示窗口和对话框。在传统的 MVVM 中，这有点麻烦。一种方法是从 ViewModel 内部实例化并显示 View (使用 `Show()` 或 `ShowDialog()`)(使其成为其中的一部分，是不可测试的)。更好的选择是实例化你想要显示在 View 代码中的 View，并在那里显示它。这意味着你需要建立一种方法来告诉 View 显示这个对话框，以及一种将对话框的结果返回到 ViewModel 的方法。
 
->实际上，假设上述内容 `Frame` 需要实例化一个 View 放入其中。这有两个相同的困境 - 要么 ViewModel 实例化它（使其不可测试），要么 View 实现（导致沟通麻烦）。
+>实际上，假设 `Frame` 需要实例化一个 View 放入其中。这有两个相同的困难 - 要么 ViewModel 实例化它（使其不可测试），要么 View 来实例化（导致沟通麻烦）。
 
 >不管是哪种方式，都有一些不好的地方。 </font>
 
@@ -94,9 +94,9 @@ This allows ViewModels to be created by other ViewModels. Which allows ViewModel
 There's another part of this trick, which is best explained by example:
 
 ---
-><font color="#63aebb" face="微软雅黑">ViewModel-first 方法接受 ViewModel 不知道其 View 的任何内容，不接受 View 应该负责构造ViewModel。相反，另一个服务负责为给定的 ViewModel 定位正确的 View，并正确设置 DataContext。
+><font color="#63aebb" face="微软雅黑">ViewModel-first 方法接受 ViewModel 不知道其 View 的任何内容，不接受 View 应该负责构造 ViewModel。相反，另一个服务负责为 ViewModel 定位正确的 View，并正确设置 DataContext。
 
->默认实现使用命名约定来查找给定 ViewModel 的正确视图，将 “ViewModel” 替换为其名称中的 “View”。这在[ViewManager](./The-ViewManager.md)中有更详细的解释。
+>默认实现使用命名约定来查找给定 ViewModel 的正确视图，将 “ViewModel” 替换为其名称中的 “View”。这在 [ViewManager](./The-ViewManager.md) 中有更详细的解释。
 
 >允许 ViewModels 由其他 ViewModels 创建。允许 ViewModels 了解并拥有其他 ViewModels。这让你可以正确编写 ViewModel。
 
@@ -152,7 +152,7 @@ The `ShellViewModel` will then navigate to a new page by instantiating a new ins
 Dialogs and Windows are handled in much the same way by [[The WindowManager]]. This takes a given ViewModel instance, and displays its View as a dialog or window.
 
 ---
-><font color="#63aebb" face="微软雅黑">然后，`ShellViewModel` 将通过实例化该页面的新实例 ViewModel 并将其分配给 `CurrentPage` 属性来导航到新页面。请注意 `ShellViewModel` 不再需要了解有关视图的任何信息。它不必实例化单个视图。这是一个非常重要、有用和强大的要点。
+><font color="#63aebb" face="微软雅黑">然后，`ShellViewModel` 将通过实例化该页面的 ViewModel 并将其分配给 `CurrentPage` 属性来导航到新页面。请注意 `ShellViewModel` 不再需要了解有关视图的任何信息。它不必实例化单个视图。这是一个非常重要、有用的要点。
 
 >[WindowManager](./The-WindowManager.md) 以大致相同的方式处理 Dialog 和 Windows。它接收给定的 ViewModel 实例，并将其视图显示为对话框或窗口。</font>
 

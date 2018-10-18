@@ -8,7 +8,7 @@ I think an example is the best way of demonstrating how these work. I'm not goin
 
 
 ---
-><font color="#63aebb" face="微软雅黑">任何具有合理复杂性的应用程序都将包含大量IoC容器配置：接口与实现，指定单例和其他（有必要的）配置有很多显式绑定。
+><font color="#63aebb" face="微软雅黑">任何具有合理复杂性的应用程序都将包含大量 IoC 容器配置：接口与实现，指定单例和其他（有必要的）配置有很多显式绑定。
 
 >默认方法是将所有这些配置放在引导加载程序中，这是有道理的：只有一个地方可以完成所有配置，并且很容易看到发生。
 

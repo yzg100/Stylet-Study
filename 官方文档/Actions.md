@@ -12,7 +12,7 @@ In 'traditional' WPF, you'd create a property on your ViewModel which implements
 Stylet solves this by introducing Actions. Look at this:
 
 ---
-><font color="#63aebb" face="微软雅黑">在 “传统” 的WPF中，在 ViewModel 上创建一个实现 [ICommand] (http://msdn.microsoft.com/en-us/library/system.windows.input.icommand%28v=vs.110%29.aspx) 接口的属性，并将按钮的 Command 属性绑定到该属性。这很好用（ViewModel 对 View 一无所知，并且不需要后台代码），但它有点乱 - 你真的想在 ViewModel 上调用一个方法，而不是在某些属性上执行方法。
+><font color="#63aebb" face="微软雅黑">在 “传统” 的WPF中，在 ViewModel 上创建一个实现 [ICommand](http://msdn.microsoft.com/en-us/library/system.windows.input.icommand%28v=vs.110%29.aspx) 接口的属性，并将按钮的 Command 属性绑定到该属性。这很好用（ViewModel 对 View 一无所知，并且不需要后台代码），但它有点乱 - 你真的想在 ViewModel 上调用一个方法，而不是在某些属性上执行方法。
 
 >Stylet 通过引入 Action 来解决这个问题。如下：</font>
 
@@ -69,7 +69,8 @@ class ViewModel
 
 Note that Actions also work on any ICommand property, on anything (e.g. a [KeyBinding](http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx)).
 
-请注意，Actions 也适用于任何 ICommand 属性（例如:[KeyBinding](http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx)）。
+---
+><font color="#63aebb" face="微软雅黑">请注意，Actions 也适用于所有 ICommand 属性（例如:[KeyBinding](http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx)）。</font>
 
 Guard Properties - 保护属性
 ----------------
@@ -81,7 +82,7 @@ Stylet will check whether a guard property exists, and if so, will disable the b
 For example:
 
 ---
-><font color="#63aebb" face="微软雅黑">你还可以使用 *保护属性* 轻松地控制按钮是否启用。给定方法的保护属性是一个 boolean 属性，其名称为 `Can<方法名称>`，因此如果你的方法被称为 `DoSomething`，相应的保护属性被称为 `CanDoSomething`。
+><font color="#63aebb" face="微软雅黑">你还可以使用 `保护属性` 轻松地控制按钮是否启用。给定方法的保护属性是一个 boolean 属性，其名称为 `Can<方法名称>`，因此如果你的方法被称为 `DoSomething`，相应的保护属性被称为 `CanDoSomething`。
 
 >Stylet 将检查 保护属性是否存在，如果存在，且返回 false 则禁用按钮，如果返回 true 则启用按钮。它还会监视该属性的 PropertyChanged 通知，因此你可以更改按钮是否启用。
 
@@ -97,7 +98,7 @@ class ViewModel
    
    public void DoSomething()
    {
-      Debug.WriteLine(&quot;DoSomething called&quot;);
+      Debug.WriteLine("DoSomething called");
    }
 }
 ```
@@ -217,7 +218,7 @@ In this case, please set `s:View.ActionTarget` to a suitable value. You may stru
 >- Popup
 >- Frame
 
->在这些情况下，Stylet会尽其所能找到一个合适的ActionTarget(例如，它可能会找到与当前XAML文件中的根元素相关联的ActionTarget)，但这可能不是你所期望的(例如，它可能会忽略 `s:View.ActionTarget="{Binding ...}"` 页面中间的一条线），或者它可能（在极少数情况下）根本找不到 ActionTarget。
+>在这些情况下，Stylet 会尽其所能找到一个合适的 ActionTarget (例如，它可能会找到与当前 XAML 文件中的根元素相关联的 ActionTarget )，但这可能不是你所期望的(例如，它可能会忽略 `s:View.ActionTarget="{Binding ...}"`  页面中间的一条线），或者它可能（在极少数情况下）根本找不到 ActionTarget。
 
 >在这种情况下，设置 `s:View.ActionTarget` 合适的值。你可能很难从 ContextMenu 中获取对 ContextMenu 之外的任何内容的引用：我建议使用 [BindingProxy](http://www.thomaslevesque.com/2011/03/21/wpf-how-to-bind-to-data-when-the-datacontext-is-not-inherited/) 技术。</font>
 
@@ -263,7 +264,7 @@ For example:
 Similarly, you can set the `ActionNotFound` property to the same values:
 
 ---
-><font color="#63aebb" face="微软雅黑">同样，你可以将‘ActionNotFound’属性设置为相同的值：</font>
+><font color="#63aebb" face="微软雅黑">同样，你可以将 `ActionNotFound` 属性设置为相同的值：</font>
 
 ```xml
 <Button Command="{s:Action MyMethod, ActionNotFound=Disable}"/>

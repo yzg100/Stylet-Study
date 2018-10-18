@@ -4,7 +4,7 @@ In a traditional View-first approach, if you want to display a new window or dia
 In a ViewModel-first approach, you can't interact directly with the views, so you can't do this. The WindowManager solves this problem - calling `IWindowManager.ShowWindow(someViewModel)` will take that ViewModel, find its view, instantiate it, bind it to that ViewModel, and display it.
 
 ---
-><font color="#63aebb" face="微软雅黑">在传统的 View-first 方式中，如果要显示新窗口或对话框，则创建View的新实例，然后调用 `.Show()` 或 `.ShowDialog()`。
+><font color="#63aebb" face="微软雅黑">在传统的 View-first 方式中，如果要显示新窗口或对话框，则创建 View 新实例，然后调用 `.Show()` 或 `.ShowDialog()`。
 
 >在 ViewModel-first 方式中，你无法直接与视图交互，因此你无法执行此操作。WindowManager 解决了这个问题 - 调用 `IWindowManager.ShowWindow(someViewModel)` 将获取 ViewModel，查找其 View 并实例化它，最后将其绑定到 ViewModel 并显示。</font>
 

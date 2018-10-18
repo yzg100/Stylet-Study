@@ -260,7 +260,8 @@ this.dialogViewModel.CreateDialogViewModel("someKey");
 
 Under the hood, StyletIoC generates a type with an implementation which looks a lot like this:
 
-底层，StyletIoC 生成一个类型，如下：
+---
+><font color="#63aebb" face="微软雅黑">底层，StyletIoC 生成一个类型，如下：</font>
 
 ```csharp
 public interface IFactoryInterface

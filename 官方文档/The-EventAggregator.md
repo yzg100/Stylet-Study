@@ -131,7 +131,7 @@ The default `IEventAggregator.Publish` method publishes the event synchronously.
 ---
 ><font color="#63aebb" face="微软雅黑">默认 `IEventAggregator.Publish` 方法同步发布事件。你还可以调用 `PublishOnUIThread` 异步调度到 UI 线程，或者 `PublishWithDispatcher` 传递你想要充当调度程序的任何操作（在  IEventAggregator 上编写自己的方法，这很有用）。</font>
 
-Channels - 通道
+Channels - 频道
 --------
 
 Subscribers can listen to particular channels, and publishers can publish events to particular channels. If an event is published to a particular channel, only subscribers who have subscribed to that channel will receive that event. This can be useful if the same message type is used in several different contexts.
@@ -145,7 +145,7 @@ By default, `Subscribe()` will subscribe the subscriber to a single channel, `Ev
 
 >频道是字符串，因此允许频道的订阅者和该频道的发布者之间的松散耦合。
 
->默认情况下，`Subscribe()` 将订阅者订阅到单个频道，`EventAggregator.DefaultChannel`。同样，`Publish()`（及其所有变体）将事件发布到相同的默认通道。但是，如果需要，你可以指定自己的频道....</font>
+>默认情况下，`Subscribe()` 将订阅者订阅到单个频道，`EventAggregator.DefaultChannel`。同样，`Publish()`（及其所有变体）将事件发布到相同的默认频道。如果需要，你可以指定自己的频道....</font>
 
 ### Subscribing to channels - 频道订阅
 
@@ -165,14 +165,14 @@ To publish to a particular channel, pass it as a parameter to `Publish`: `eventA
 ---
 ><font color="#63aebb" face="微软雅黑">要发布到特定频道，请将其作为参数传递给 `Publish`：`eventAggregator.Publish(message, "ChannelA")`，或 `eventAggregator.PublishOnUIThread(message, "ChannelA", "ChannelB")`。与上面的订阅一样，事件将发布到所有已命名的频道，而不是默认频道。</font>
 
-### Unsubscribing from channels 取消订阅频道
+### Unsubscribing from channels 取消频道订阅
 
 To unsubscribe from a channel, pass it to `Unsubscribe`: `eventAggregator.Unsubscribe(this, "ChannelA")`. You will remain subscribed to any other channels you were previously subscribed to, and have not unsubscribed from.
 
 Calling `eventAggregator.Unsubscribe(this)` will unsubscribe you from *all* channels.
 
 ---
-><font color="#63aebb" face="微软雅黑">要取消订阅频道，请将其传递给 `Unsubscribe`：`eventAggregator.Unsubscribe(this, "ChannelA")`。你之前订阅的其它频道，不会被取消订阅。</font>
+><font color="#63aebb" face="微软雅黑">要取消频道订阅，请将其传递给 `Unsubscribe`：`eventAggregator.Unsubscribe(this, "ChannelA")`。你之前订阅的其它频道，不会被取消订阅。</font>
 
 Using your own IoC container - 使用你自己的IoC容器
 ----------------------------

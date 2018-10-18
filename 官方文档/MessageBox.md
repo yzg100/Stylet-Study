@@ -49,7 +49,7 @@ Therefore, you can provide you own custom implementation of `MessageBoxViewModel
 If you just want to tweak the behaviour of the existing `MessageBoxViewModel`, you can. The following options are available:
 
 ---
-><font color="#63aebb" face="微软雅黑">Stylet MessageBox 实现为一个 ViewModel - `MessageBoxViewModel`，和它对应的 View - `MessageBoxView`。ViewModel 实现接口 `IMessageBoxViewModel`，而 `ShowMessageBox()` 方法使用这个接口来检索 ViewModel 的实例。
+><font color="#63aebb" face="微软雅黑">Stylet MessageBox 实现为 ViewModel - `MessageBoxViewModel`，和它对应的 View - `MessageBoxView`。ViewModel 实现接口 `IMessageBoxViewModel`，而 `ShowMessageBox()` 方法使用这个接口来检索 ViewModel 的实例。
 
 >因此，你可以继承 `IMessageBoxViewModel` 接口，编写实现 `MessageBoxViewModel` 的 ViewModel，提供自己的 `MessageBoxViewModel` 和 `MessageBoxView` 的自定义实现，并将其注册到 IoC 容器中。然后使用 `ShowMessageBox()` 调用它。 
 
@@ -79,7 +79,7 @@ this.windowManager.ShowMessageBox("Do you want breakfast?",
 The `MessageBoxViewModel.ButtonToResults` dictionary specifies which buttons are shown for each `MessageBoxButton` enumeration value. Want to be able to display the buttons "OK", "Yes" and "No" together? Fiddle with this dictionary.
 
 ---
-><font color="#63aebb" face="微软雅黑">`MessageBoxViewModel.ButtonToResults` 指定每个 `MessageBoxButton` 枚举值显示哪些按钮。设置该字典能够同时显示"OK"、"Yes"和"No"按钮吗。</font>
+><font color="#63aebb" face="微软雅黑">`MessageBoxViewModel.ButtonToResults` 指定每个 `MessageBoxButton` 枚举值显示哪些按钮。设置该字典能够同时显示"OK"、"Yes" 和 "No" 按钮。</font>
 
 ### Custom Icons - 自定义图标
 

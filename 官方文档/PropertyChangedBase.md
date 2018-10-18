@@ -83,6 +83,9 @@ class Bootstrapper : Bootstrapper<MyRootViewModel>
 
 To change for just once instance of PropertyChangedBase:
 
+---
+><font color="#63aebb" face="微软雅黑">仅更改实例 PropertyChangedBase 一次:</font>
+
 ```csharp
 class MyClass : PropertyChangedBase
 {
@@ -98,7 +101,7 @@ Use with PropertyChanged.Fody - 与 PropertyChanged.Fody 一起使用
 [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged) is a fantastic package, which injects code at compile-time to automatically raise PropertyChanged notifications for your properties, allowing you to write very concise code. It will also figure out dependencies between your properties and raise notifications appropriately for example:
 
 ---
-><font color="#63aebb" face="微软雅黑">[PropertyChanged.Fody](https://github.com/Fody/PropertyChanged)是一个很棒的包，它在编译时注入代码以自动为你的属性引发 PropertyChanged 通知，允许你编写非常简洁的代码。它还将找出属性之间的依赖关系并适当地引发通知，例如：</font>
+><font color="#63aebb" face="微软雅黑">[PropertyChanged.Fody](https://github.com/Fody/PropertyChanged) 是一个很棒的包，它在编译时注入代码以自动为你的属性引发 PropertyChanged 通知，允许你编写非常简洁的代码。它还将找出属性之间的依赖关系并适当地引发通知，例如：</font>
 
 ```csharp
 class MyClass : PropertyChangedBase

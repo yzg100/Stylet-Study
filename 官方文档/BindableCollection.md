@@ -44,7 +44,7 @@ Thread safety is achieved by dispatching all actions (adds, removes, clear, rese
 That last point means that there is no `PropertyChangedDispatcher` property on `BindableCollection<T>`, as there is with `PropertyChangedBase` - the event is always raised on the UI thread, since the operation the property relates to is always performed on the UI thread. Similarly, there's no `CollectionChangedDispatcher` concept.
 
 ---
-><font color="#63aebb" face="微软雅黑">线程安全是通过向UI线程调度所有操作(添加、删除、清除、重置等)来实现的。调度使用`Execute.OnUIThreadSync`意味着：
+><font color="#63aebb" face="微软雅黑">线程安全是通过向 UI 线程调度所有操作(添加、删除、清除、重置等)来实现的。调度使用 `Execute.OnUIThreadSync` 意味着：
 操作是同步的：被调用的方法在操作完成之前不会返回。
 
 >- 如果在空闲 UI 线程中，操作将同步执行。

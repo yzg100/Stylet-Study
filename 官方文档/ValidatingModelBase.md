@@ -96,9 +96,9 @@ This is called by ValidatingModelBase when it is setting up its validation for t
 There's also a generic version of this interface, `IModelValidator<T>`, which merely extends `IModelValidator`, and adds nothing extra. This is, again, useful when IoC contains come into the picture - more on that later.
 
 ---
-><font color="#63aebb" face="微软雅黑">这是由ValidatingModelBase在第一次设置验证时调用的，并且它传入自身的实例。允许 `IModelValidator` 针对特定实例实现验证模型库。当我们将实际与 StyletIoC 联系起来时，这更具相关性，稍后会看到。
+><font color="#63aebb" face="微软雅黑">这是由 ValidatingModelBase 在第一次设置验证时调用的，并且它传入自身的实例。允许 `IModelValidator` 针对特定实例实现验证模型库。当我们将实际与 StyletIoC 联系起来时，这更具相关性，稍后会看到。
 
->还有这个接口的通用版本 `IModelValidator<T>` ，它只是扩展 `IModelValidator`，并没有额外增加。当IoC包含进来时是有用的 - 稍后会详细介绍。</font>
+>还有这个接口的通用版本 `IModelValidator<T>` ，它只是扩展 `IModelValidator`，并没有额外增加。当 IoC 包含进来时是有用的 - 稍后会详细介绍。</font>
 
 ### Running Validations - 运行验证
 
@@ -161,7 +161,7 @@ FluentValidation works by you creating a new class, which implements `IValidator
 ---
 ><font color="#63aebb" face="微软雅黑">在接下来的几节中，我将通过实现验证的例子，使用[FluentValidation](http://fluentvalid.codeplex.com/)库。
 
->FluentValidation 通过创建新类来实现 `IValidator<T>`(通过扩展 `AbstractValidator<T>` 来实现这一点，它可以验证一种特定的类型`T`)。然后，创建新实例，并使用它来运行验证。例如，如果你有 `UserViewModel`，你将定义 `UserViewModelValidator`，它扩展了`AbstractValidator<UserViewModel>`，因此实现了 `IValidator<UserViewModel>`，如下所示:</font>
+>FluentValidation 通过创建新类来实现 `IValidator<T>` (通过扩展 `AbstractValidator<T>` 来实现这一点，它可以验证一种特定的类型`T`)。然后，创建新实例，并使用它来运行验证。例如，如果你有 `UserViewModel`，你将定义 `UserViewModelValidator`，它扩展了`AbstractValidator<UserViewModel>`，因此实现了 `IValidator<UserViewModel>`，如下所示:</font>
 
 ```csharp
 public class UserViewModel : Screen
@@ -224,7 +224,7 @@ Now, what will this look like in practice? First, remember when I said that `IMo
 
 >到目前为止有意义吗?这听起来似乎要做很多工作，但是我们可以让 IoC 容器来完成大部分繁重的工作，很快就会看到。
 
->那么，这在实践中会是什么样子？还记得我说过的 IModelValidator<T> 被定义为刚刚实现的接口 IModelValidator 吗？我不打算告诉你为什么，但请记住，它们基本上是同义的。</font>
+>那么，这在实践中会是什么样子？还记得我说过的 IModelValidator<T> 被定义为刚刚实现的接口 IModelValidator 吗？我不打算告诉你为什么，但请记住，它们基本上是相同的。</font>
 
 ```csharp
 // Define the adapter - 定义适配器

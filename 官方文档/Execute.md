@@ -43,7 +43,7 @@ This mirrors the traditional pattern of:
 ---
 ><font color="#63aebb" face="微软雅黑">检查当前线程是否是 UI 线程。如果是，则委托将同步执行。如果不是，则委托将被分派到 UI 线程，以便未来某个时候执行。在这种情况下，Execute.OnUIThread 不会等待委托完成。
 
->这反映了以下传统模式： </font>
+>传统模式： </font>
 
 ```csharp
 public static void InvokeIfRequired(Action action)
